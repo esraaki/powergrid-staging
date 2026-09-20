@@ -4,6 +4,8 @@ export const company = {
   eyebrow:'Utility response / workforce solutions',
   heroTitle:['READY WHEN','THE GRID','NEEDS US.'],
   heroBody:'Reliable, year-round solutions that help utility providers serve their customers in every season.',
+  heroImage:'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=2200&q=88',
+  aboutImage:'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1800&q=86',
   about:'Collective Strategic Resources is a division of PowerGrid Services, delivering field-ready support for utilities through restoration, vegetation, assessment, logistics, and supplemental workforce solutions.',
   services:[
     {id:'restoration',name:'Power Restoration',kicker:'01 / Response',description:'Field-ready crews and coordinated response support when utility systems need rapid restoration.',image:'https://loremflickr.com/1600/1200/lineman,powerline?lock=41',position:'center'},
@@ -14,7 +16,7 @@ export const company = {
   ] as Service[],
   safetyTitle:['SAFETY FOCUSED.','PEOPLE MINDED.'],
   safetyBody:'The safety of our team, customers, subcontractors, and the public is how we measure success. Every task and decision is made with safety at the forefront.',
-  safetyImage:'https://loremflickr.com/1800/1300/lineman,safety,utility?lock=46',
+  safetyImage:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1800&q=86',
   contact:{phone:'877-277-8623',address:'2350 US Highway 31 North, Hartselle, AL 35640'},
   parent:'PowerGrid Services'
 };
