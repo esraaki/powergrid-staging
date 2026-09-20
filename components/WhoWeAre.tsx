@@ -1,0 +1,2 @@
+import { company } from '../data/company';
+export function WhoWeAre(){return <section id="about" className="about section-pad"><div className="section-number">02</div><div className="about-grid"><div><p className="micro-label">Who we are</p><h2>BUILT TO<br/><em>RESPOND.</em></h2></div><div className="about-copy"><p>{company.about}</p><a className="text-link" href="#services">See how we work <span>↗</span></a></div></div><div className="about-rule"><span>People matter more</span><i/></div></section>}
