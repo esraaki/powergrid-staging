@@ -193,3 +193,7 @@ a:focus-visible,button:focus-visible{outline-color:var(--orange)}
 
 /* v15: hero closing word stays white across every brand preview */
 .hero h1 .orange{color:#fff}
+
+/* v17 brand-aware social hover colors */
+html[data-brand='csr'] footer .social-icons a:hover img{filter:invert(39%) sepia(91%) saturate(1286%) hue-rotate(164deg) brightness(89%) contrast(101%)}
+html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sepia(69%) saturate(683%) hue-rotate(80deg) brightness(87%) contrast(91%)}
