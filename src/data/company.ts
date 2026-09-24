@@ -1,22 +1,19 @@
-export type Service = { id:string; name:string; kicker:string; description:string; image:string; position?:string };
-export const company = {
-  name:'Collective Strategic Resources', shortName:'CSR',
-  eyebrow:'Utility response / workforce solutions',
-  heroTitle:['READY WHEN','THE GRID','NEEDS US.'],
-  heroBody:'Reliable, year-round solutions that help utility providers serve their customers in every season.',
-  heroImage:'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=2200&q=88',
-  aboutImage:'https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?auto=format&fit=crop&w=1800&q=86',
-  about:'Collective Strategic Resources is a division of PowerGrid Services, delivering field-ready support for utilities through restoration, vegetation, assessment, logistics, and supplemental workforce solutions.',
-  services:[
-    {id:'restoration',name:'Power Restoration',kicker:'01 / Response',description:'Field-ready crews and coordinated response support when utility systems need rapid restoration.',image:'https://loremflickr.com/1600/1200/lineman,powerline?lock=41',position:'center'},
-    {id:'vegetation',name:'Vegetation Management',kicker:'02 / Clearance',description:'Utility-focused vegetation support built around safe access, continuity, and right-of-way needs.',image:'https://loremflickr.com/1600/1200/utility,trees,powerline?lock=42',position:'center'},
-    {id:'assessment',name:'Damage Assessment',kicker:'03 / Intelligence',description:'On-the-ground assessment support that helps teams understand damage and organize the work ahead.',image:'https://loremflickr.com/1600/1200/storm,powerline,worker?lock=43',position:'center'},
-    {id:'logistics',name:'Logistics & Management',kicker:'04 / Coordination',description:'Operational coordination that keeps people, equipment, and field activity moving with purpose.',image:'https://loremflickr.com/1600/1200/utility,truck,crew?lock=44',position:'center'},
-    {id:'workforce',name:'Supplemental Workforce',kicker:'05 / Capacity',description:'Additional skilled field capacity to support utility operations through changing demand and project needs.',image:'https://loremflickr.com/1600/1200/linemen,utility,crew?lock=45',position:'center'}
-  ] as Service[],
-  safetyTitle:['SAFETY FOCUSED.','PEOPLE MINDED.'],
-  safetyBody:'The safety of our team, customers, subcontractors, and the public is how we measure success. Every task and decision is made with safety at the forefront.',
-  safetyImage:'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1800&q=86',
-  contact:{phone:'877-277-8623',address:'2350 US Highway 31 North, Hartselle, AL 35640'},
-  parent:'PowerGrid Services'
+export type Service={id:string;name:string;description:string;image:string};
+export const company={
+ name:'AMPP Construction',shortName:'AMPP',parent:'PowerGrid Services',
+ heroTitle:['POWERING','STRONGER','COMMUNITIES.'],
+ heroBody:'Reliable utility infrastructure through skilled people, safe practices and a commitment to the communities we serve.',
+ about:'We deliver dependable utility infrastructure support through experienced people, responsive field operations and a commitment to doing the work safely.',
+ identifier:'A PowerGrid Services company, supported by a broader family of infrastructure businesses and shared operational expertise.',
+ servicesIntro:'From power distribution to storm restoration and specialty support, experienced teams deliver the infrastructure that keeps communities running.',
+ services:[
+ {id:'distribution',name:'Electric Power',description:'Building and maintaining the systems that keep communities powered.',image:'https://loremflickr.com/1400/1100/lineman,utility,powerline?lock=71'},
+ {id:'underground',name:'Underground Utility',description:'Reliable infrastructure and field support below the surface.',image:'https://loremflickr.com/1400/1100/pipeline,construction,excavation?lock=72'},
+ {id:'renewables',name:'Renewables',description:'Supporting resilient energy infrastructure for what comes next.',image:'https://loremflickr.com/1400/1100/solar,energy,construction?lock=73'},
+ {id:'data',name:'Data Centers',description:'Infrastructure support for critical facilities and growing demand.',image:'https://loremflickr.com/1400/1100/datacenter,industrial,construction?lock=74'},
+ {id:'specialty',name:'Engineering & Specialty Solutions',description:'Experienced field expertise for complex infrastructure projects.',image:'https://loremflickr.com/1400/1100/engineer,utility,construction?lock=75'}] as Service[],
+ featureTitle:['WE SERVE','THE COMMUNITIES','THAT BUILD TOMORROW.'],
+ featureBody:'From new infrastructure to vital upgrades, our work supports the people and places that depend on reliable service.',
+ featureImage:'https://loremflickr.com/2200/1300/industrial,construction,worker,sunset?lock=76',
+ contact:{phone:'',address:''}
 };
