@@ -230,3 +230,30 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
 .service-card:hover .service-arrow{background:var(--orange);color:#fff;transform:none}
 .service-card:hover .service-arrow i{transform:translate(3px,-1px)}
 @media(max-width:600px){.service-copy{padding-right:64px}.service-arrow{width:46px;height:46px}.service-arrow i{font-size:35px}}
+
+/* v19 — service card refinements */
+.service-card img{
+  filter:grayscale(.78) saturate(.42) contrast(1.06) brightness(.80);
+}
+.service-card:hover img{
+  transform:scale(1.045);
+  filter:grayscale(.68) saturate(.50) contrast(1.06) brightness(.77);
+}
+.service-arrow{
+  width:52px;height:52px;
+  background:var(--orange);color:#fff;
+}
+.service-arrow i{
+  font-size:27px;
+  line-height:1;
+  transform:none;
+  display:block;
+}
+.service-card:hover .service-arrow{
+  background:#101719;color:#fff;transform:none;
+}
+.service-card:hover .service-arrow i{transform:none}
+@media(max-width:600px){
+  .service-arrow{width:46px;height:46px}
+  .service-arrow i{font-size:24px}
+}
