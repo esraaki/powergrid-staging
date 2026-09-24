@@ -67,3 +67,26 @@ a:focus-visible,button:focus-visible{outline-color:var(--orange)}
  .feature-panel h2{font-size:clamp(48px,13vw,64px);line-height:.86;margin-bottom:24px}
  .feature-panel p{font-size:15px}
 }
+
+/* v10 polish: crisp identifier texture, hero nav readability, confident hero entrance */
+.site-nav:not(.solid){
+  background:rgba(5,8,9,.12);
+  box-shadow:0 18px 34px rgba(0,0,0,.18), inset 0 1px rgba(255,255,255,.035);
+  backdrop-filter:blur(2px);
+  -webkit-backdrop-filter:blur(2px);
+}
+/* High-frequency vector grain: stays sharp at every screen density. */
+.identifier:before{
+  opacity:.28;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240' viewBox='0 0 240 240'%3E%3Cfilter id='grain' x='-20%25' y='-20%25' width='140%25' height='140%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='5' seed='11' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncR type='table' tableValues='.18 .82'/%3E%3CfeFuncG type='table' tableValues='.18 .82'/%3E%3CfeFuncB type='table' tableValues='.18 .82'/%3E%3CfeFuncA type='table' tableValues='0 .42'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23grain)' opacity='.72'/%3E%3C/svg%3E");
+  background-size:240px 240px;
+  background-repeat:repeat;
+  mix-blend-mode:multiply;
+  filter:none;
+}
+.identifier:after{
+  opacity:.20;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='160' viewBox='0 0 320 160'%3E%3Cg fill='none' stroke='%23781f19' stroke-opacity='.20'%3E%3Cpath d='M-20 32 C42 20 84 44 142 31 S252 17 340 38'/%3E%3Cpath d='M-20 101 C48 83 96 116 166 97 S274 86 340 109'/%3E%3C/g%3E%3Cg fill='%23fff' fill-opacity='.08'%3E%3Ccircle cx='42' cy='63' r='.8'/%3E%3Ccircle cx='118' cy='130' r='1'/%3E%3Ccircle cx='244' cy='55' r='.7'/%3E%3Ccircle cx='292' cy='138' r='.9'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:320px 160px;
+  mix-blend-mode:multiply;
+}
