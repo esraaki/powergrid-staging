@@ -257,3 +257,19 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
   .service-arrow{width:46px;height:46px}
   .service-arrow i{font-size:24px}
 }
+
+/* v20 — service cards: natural color + left-side charcoal gradient */
+.service-card img{
+  filter:none;
+}
+.service-card:hover img{
+  transform:scale(1.045);
+  filter:none;
+}
+.service-overlay{
+  background:
+    linear-gradient(90deg,rgba(15,20,22,.84) 0%,rgba(22,27,29,.68) 30%,rgba(26,30,32,.30) 58%,rgba(20,24,26,.06) 82%,transparent 100%),
+    linear-gradient(0deg,rgba(4,7,8,.34) 0%,transparent 48%);
+  opacity:1;
+}
+.service-card:hover .service-overlay{opacity:.72}
