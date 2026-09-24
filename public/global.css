@@ -90,3 +90,40 @@ a:focus-visible,button:focus-visible{outline-color:var(--orange)}
   background-size:320px 160px;
   mix-blend-mode:multiply;
 }
+
+/* v11 final visual refinements */
+/* Keep the brand red-orange globally, but give the hero emphasis a lighter AMPP orange. */
+.hero h1 .orange{color:#EF582A}
+
+/* Use the supplied high-resolution grain artwork on the PowerGrid identifier. */
+.identifier:before{
+  opacity:.34;
+  background-image:url('/assets/identifier-grain.png');
+  background-size:cover;
+  background-position:center;
+  background-repeat:no-repeat;
+  mix-blend-mode:soft-light;
+  filter:none;
+}
+.identifier:after{display:none}
+
+/* Lower the feature panel and let its orange field terminate exactly at the section edge. */
+.feature{
+  min-height:820px;
+  padding:145px 0 0;
+  align-items:flex-end;
+}
+.feature-panel{
+  margin-right:var(--gutter);
+  margin-bottom:0;
+  padding:62px 62px 72px;
+  align-self:flex-end;
+}
+@media(max-width:900px){
+  .feature{min-height:760px;padding:125px 0 0}
+  .feature-panel{margin-right:5vw;margin-bottom:0;padding:54px 48px 64px}
+}
+@media(max-width:600px){
+  .feature{min-height:760px;padding:330px 20px 0;align-items:flex-end}
+  .feature-panel{margin:0;padding:40px 30px 50px}
+}
