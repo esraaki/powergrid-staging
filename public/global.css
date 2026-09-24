@@ -127,3 +127,58 @@ a:focus-visible,button:focus-visible{outline-color:var(--orange)}
   .feature{min-height:760px;padding:330px 20px 0;align-items:flex-end}
   .feature-panel{margin:0;padding:40px 30px 50px}
 }
+
+/* v12 requested refinements */
+/* Hero emphasis returns to the primary AMPP red-orange. */
+.hero h1 .orange{color:var(--orange)}
+
+/* Use the user's supplied grain texture clearly on the PowerGrid identifier panel. */
+.identifier:before{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  opacity:.62;
+  background-image:url('/assets/identifier-grain.png');
+  background-size:960px 540px;
+  background-position:center;
+  background-repeat:repeat;
+  mix-blend-mode:multiply;
+  filter:none;
+  pointer-events:none;
+}
+.identifier:after{display:none}
+
+/* Narrower, taller closing statement; orange reaches the section's bottom edge. */
+.feature{
+  min-height:880px;
+  padding:150px 0 0;
+  align-items:flex-end;
+}
+.feature-panel{
+  width:min(560px,42vw);
+  min-height:650px;
+  margin-right:var(--gutter);
+  margin-bottom:0;
+  padding:72px 58px 78px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-self:flex-end;
+}
+.feature-panel h2{
+  font-size:clamp(58px,4.55vw,76px);
+  line-height:.84;
+  margin-bottom:36px;
+}
+.feature-panel p{font-size:17px;line-height:1.65;max-width:430px}
+
+@media(max-width:900px){
+  .feature{min-height:800px;padding:135px 0 0}
+  .feature-panel{width:min(560px,62vw);min-height:610px;margin-right:5vw;padding:60px 48px 68px}
+}
+@media(max-width:600px){
+  .feature{min-height:820px;padding:330px 20px 0}
+  .feature-panel{width:100%;min-height:490px;margin:0;padding:46px 30px 54px}
+  .feature-panel h2{font-size:clamp(48px,13vw,64px)}
+}
