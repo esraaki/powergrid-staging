@@ -17,5 +17,5 @@ export default function App(){
  useEffect(()=>{const t=themes[brand];const r=document.documentElement;r.style.setProperty('--orange',t.accent);r.style.setProperty('--orange-hover',t.hover);r.style.setProperty('--heading',t.heading);r.dataset.brand=brand},[brand]);
  const match=window.location.pathname.match(/^\/services\/([^/]+)\/?$/);
  const service=match?company.services.find(s=>s.id===match[1]):undefined;
- return <><Navigation brand={brand}/><main>{service?<ServicePage service={service}/>:<><Hero/><WhoWeAre/><ServicesExperience/><Safety/></>}</main><Footer brand={brand}/><BrandSwitcher brand={brand} onChange={setBrand}/></>
+ return <><Navigation brand={brand}/><main>{service?<ServicePage service={service} brand={brand}/>:<><Hero brand={brand}/><WhoWeAre brand={brand}/><ServicesExperience brand={brand}/><Safety brand={brand}/></>}</main><Footer brand={brand}/><BrandSwitcher brand={brand} onChange={setBrand}/></>
 }
