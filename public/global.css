@@ -319,3 +319,7 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
 .service-article li{padding:7px 0;border-bottom:0;font-size:16px;line-height:1.6}
 .service-article li:before{content:none}
 @media(max-width:1100px){.site-nav nav{gap:24px}.services-dropdown{top:calc(100% + 25px)}}
+
+/* v24 — dropdown width + brand-specific service labels */
+.services-dropdown{width:min(390px,calc(100vw - 32px));box-sizing:border-box}
+.services-dropdown a{font-size:13px!important;padding:16px 18px;white-space:normal;overflow-wrap:break-word}
