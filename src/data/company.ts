@@ -16,14 +16,14 @@ export const brandServices:Record<BrandKey,Service[]>={
   {id:'underground',name:'Civil & Underground',description:'Field-ready civil and underground utility support from planning through installation.',image:'https://images.pexels.com/photos/31460017/pexels-photo-31460017.jpeg?auto=compress&cs=tinysrgb&w=1400'},
   {id:'renewables',name:'Energy Systems',description:'Flexible construction support for evolving generation and grid infrastructure.',image:'https://images.pexels.com/photos/13820149/pexels-photo-13820149.jpeg?auto=compress&cs=tinysrgb&w=1400'},
   {id:'data',name:'Mission-Critical Facilities',description:'Infrastructure execution for facilities where uptime and coordination are essential.',image:'https://images.pexels.com/photos/16368410/pexels-photo-16368410.jpeg?auto=compress&cs=tinysrgb&w=1400'},
-  {id:'specialty',name:'Technical Field Services',description:'Specialized field capabilities for unusual scopes and demanding site conditions.',image:'https://images.pexels.com/photos/19879654/pexels-photo-19879654.jpeg?auto=compress&cs=tinysrgb&w=1400'}
+  {id:'specialty',name:'Technical Field Services',description:'Specialized field capabilities for unusual scopes and demanding site conditions.',image:'https://images.pexels.com/photos/19879654/pexels-photo-19879654.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'project-support',name:'Project & Construction Support',description:'Coordinated project support that helps complex field programs stay organized, responsive and on schedule.',image:'https://images.pexels.com/photos/159358/construction-site-build-construction-work-159358.jpeg?auto=compress&cs=tinysrgb&w=1400'}
  ],
  james:[
   {id:'distribution',name:'Overhead Powerline',description:'Experienced line crews supporting overhead construction, upgrades and system reliability.',image:'https://images.pexels.com/photos/35571322/pexels-photo-35571322.jpeg?auto=compress&cs=tinysrgb&w=1400'},
   {id:'underground',name:'Underground Distribution',description:'Practical underground distribution work backed by experienced utility crews.',image:'https://images.pexels.com/photos/5328573/pexels-photo-5328573.jpeg?auto=compress&cs=tinysrgb&w=1400'},
   {id:'renewables',name:'Storm Response',description:'Responsive crews and field support when restoration work cannot wait.',image:'https://images.pexels.com/photos/17321815/pexels-photo-17321815.jpeg?auto=compress&cs=tinysrgb&w=1400'},
-  {id:'data',name:'Substation Support',description:'Hands-on construction and maintenance support for critical electrical facilities.',image:'https://images.pexels.com/photos/9720534/pexels-photo-9720534.jpeg?auto=compress&cs=tinysrgb&w=1400'},
-  {id:'specialty',name:'Line Maintenance & Specialty Work',description:'Flexible field solutions for maintenance, repairs and specialized powerline scopes.',image:'https://images.pexels.com/photos/33689073/pexels-photo-33689073.jpeg?auto=compress&cs=tinysrgb&w=1400'}
+  {id:'data',name:'Substation Support',description:'Hands-on construction and maintenance support for critical electrical facilities.',image:'https://images.pexels.com/photos/9720534/pexels-photo-9720534.jpeg?auto=compress&cs=tinysrgb&w=1400'}
  ]
 };
 

@@ -323,3 +323,10 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
 /* v24 — dropdown width + brand-specific service labels */
 .services-dropdown{width:min(390px,calc(100vw - 32px));box-sizing:border-box}
 .services-dropdown a{font-size:13px!important;padding:16px 18px;white-space:normal;overflow-wrap:break-word}
+
+
+/* v26 — brand-specific homepage service grids. AMPP remains unchanged. */
+@media(min-width:901px){
+  .service-collage-csr .service-card{grid-column:span 2}
+  .service-collage-james .service-card{grid-column:span 3}
+}
