@@ -33,3 +33,5 @@ Semantic landmarks, keyboard-focusable services, visible focus styles, mobile no
 Prototype photography is loaded from LoremFlickr keyword endpoints so the source package remains lightweight. For client production, replace these URLs in `company.ts` with approved company-owned photography/CDN assets.
 
 V19: service images retain subtle color; brand-color arrow squares default to dark on hover; arrow glyph reduced and centered.
+
+V29: Fixed Vercel SPA routing for all internal pages (About, Safety, Careers, Contact, and Services).
