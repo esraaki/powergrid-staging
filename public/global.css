@@ -381,3 +381,13 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
   .safety-support{grid-template-columns:1fr}.safety-support-image{min-height:360px}.contact-page h2{font-size:clamp(58px,10vw,82px)}
 }
 @media(max-width:600px){.mobile-nav-panel{padding-left:20px;padding-right:20px}.safety-support-image{min-height:300px}.safety-support-copy{padding:42px 28px}.contact-page h2{font-size:clamp(54px,16vw,78px)}}
+
+/* V34 — contact cleanup, full-screen mobile navigation, safety image order */
+.contact-page{grid-template-columns:minmax(0,1fr) minmax(300px,.78fr);gap:clamp(70px,9vw,145px)}
+.safety-photo-final{margin-top:clamp(45px,6vw,85px);margin-bottom:0}
+@media(max-width:900px){
+  .site-nav.mobile-open{backdrop-filter:none;-webkit-backdrop-filter:none}
+  .mobile-nav-panel{height:100dvh;min-height:100dvh;top:0;bottom:auto}
+  .contact-page{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){.contact-page{grid-template-columns:1fr}.safety-photo-final{margin-top:35px;margin-bottom:0}}
