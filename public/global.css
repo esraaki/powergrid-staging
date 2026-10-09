@@ -391,3 +391,11 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
   .contact-page{grid-template-columns:1fr 1fr}
 }
 @media(max-width:600px){.contact-page{grid-template-columns:1fr}.safety-photo-final{margin-top:35px;margin-bottom:0}}
+
+/* V37 — safety closing copy + contact CTA */
+.safety-closing-copy{padding:clamp(75px,8vw,120px) 0 clamp(30px,4vw,55px);max-width:1180px}
+.safety-closing-copy h2{font-family:var(--heading);font-size:clamp(58px,6.6vw,104px);line-height:.84;text-transform:uppercase;margin:22px 0 38px;max-width:980px}
+.safety-closing-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(40px,6vw,90px);max-width:1050px}
+.safety-closing-body p{font-size:17px;line-height:1.75;color:#4b5051;margin:0}
+.safety-contact-cta{margin-top:0}
+@media(max-width:700px){.safety-closing-body{grid-template-columns:1fr;gap:22px}.safety-closing-copy{padding-top:70px}.safety-closing-copy h2{font-size:clamp(54px,16vw,78px)}}
