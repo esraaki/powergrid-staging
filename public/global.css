@@ -840,3 +840,115 @@ html[data-design="b"] .footer-bottom{border-top:0!important}
  html[data-design="b"] .safety-badges{grid-template-columns:1fr 1fr!important;gap:32px 18px!important}.safety-badge img{max-width:110px!important}
  html[data-design="b"] .other-service{height:200px!important;padding:30px 26px!important}html[data-design="b"] .other-service:before{left:26px!important}
 }
+
+/* v41 — Variation B feedback pass */
+.b-only{display:none}
+html[data-design="b"] .b-only{display:block}
+
+/* Homepage B — PowerGrid becomes a clean separator row, not a card */
+html[data-design="b"] .about{padding-bottom:56px!important}
+html[data-design="b"] .about-grid{margin-bottom:0!important}
+html[data-design="b"] .identifier{
+  position:relative!important;max-width:none!important;width:auto!important;min-height:0!important;
+  margin:54px var(--gutter) 0!important;padding:32px 0 0!important;
+  display:grid!important;grid-template-columns:220px 1fr!important;gap:44px!important;align-items:center!important;
+  background:transparent!important;box-shadow:none!important;border:0!important;border-top:2px solid var(--orange)!important;
+}
+html[data-design="b"] .identifier:before,html[data-design="b"] .identifier-rule{display:none!important}
+html[data-design="b"] .identifier-logo{max-width:205px!important;max-height:64px!important;filter:brightness(0)!important}
+html[data-design="b"] .identifier p{color:#111819!important;margin:0!important;max-width:650px!important;font-size:15px!important;line-height:1.65!important}
+
+/* B footer — use the actual brand color */
+html[data-design="b"] footer{background:var(--orange)!important;color:#fff!important;border:0!important;border-bottom:14px solid var(--orange-hover)!important}
+
+/* About / Careers B — centered lead blocks and cleaner approach */
+html[data-design="b"] .inner-hero h1{align-items:flex-start!important;padding-top:62px!important}
+html[data-design="b"] .editorial-page .editorial-intro{max-width:900px!important;text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+html[data-design="b"] .editorial-page .editorial-intro:before{display:none!important}
+html[data-design="b"] .editorial-page>.content-columns{
+  max-width:1160px!important;grid-template-columns:38% 62%!important;background:#fff!important;box-shadow:none!important;
+  border-top:1px solid #c8cbc7!important;border-bottom:1px solid #c8cbc7!important;
+}
+html[data-design="b"] .editorial-page>.content-columns>div:first-child{
+  background:transparent!important;color:#111819!important;min-height:0!important;padding:64px 55px!important;
+  align-items:center!important;text-align:center!important;justify-content:center!important;border-right:1px solid #d9dbd8!important;
+}
+html[data-design="b"] .editorial-page>.content-columns>div:first-child small{color:var(--orange)!important}
+html[data-design="b"] .editorial-page>.content-columns>div:first-child h3{color:#111819!important;max-width:300px!important}
+html[data-design="b"] .editorial-page>.content-columns>div:last-child{padding:64px 72px!important}
+html[data-design="b"] .about-photo{display:none!important}
+html[data-design="b"] .editorial-page .content-columns p{max-width:660px}
+
+/* Variation B CTA — compact framed callout, deliberately unlike A */
+html[data-design="b"] .service-cta{
+  min-height:0!important;margin:90px var(--gutter)!important;padding:0!important;
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+  background:#f3f2ee!important;color:#111819!important;border:1px solid #c9ccc8!important;overflow:visible!important;
+}
+html[data-design="b"] .service-cta:before{content:''!important;left:0!important;top:0!important;bottom:0!important;width:10px!important;height:auto!important;background:var(--orange)!important}
+html[data-design="b"] .service-cta>div:first-child{padding:52px 55px 52px 68px!important}
+html[data-design="b"] .service-cta>div:first-child h2{color:#111819!important;font-size:clamp(48px,4.7vw,74px)!important;line-height:.86!important}
+html[data-design="b"] .service-cta>div:last-child{background:transparent!important;padding:52px 58px 52px 30px!important;max-width:470px!important;align-items:flex-start!important}
+html[data-design="b"] .service-cta>div:last-child p{color:#555d5c!important;margin-bottom:24px!important}
+html[data-design="b"] .service-cta-button{width:auto!important;background:var(--orange)!important;color:#fff!important;padding:18px 25px!important;gap:28px!important}
+html[data-design="b"] .service-cta-button:hover{background:var(--orange-hover)!important;color:#fff!important}
+
+/* Other Services B — align title with number; reveal photography on hover */
+html[data-design="b"] .other-service{padding:36px 38px 36px 74px!important;background:#fff!important}
+html[data-design="b"] .other-service:before{left:74px!important;z-index:3!important}
+html[data-design="b"] .other-service strong{z-index:3!important;max-width:72%!important;transition:color .25s ease!important}
+html[data-design="b"] .other-service img{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;opacity:0!important;transform:scale(1.04)!important;transition:opacity .35s ease,transform .55s ease!important}
+html[data-design="b"] .other-service-shade{display:block!important;position:absolute!important;inset:0!important;background:linear-gradient(90deg,rgba(8,13,14,.88),rgba(8,13,14,.42))!important;opacity:0!important;transition:opacity .35s ease!important;z-index:1!important}
+html[data-design="b"] .other-service b{z-index:3!important}
+html[data-design="b"] .other-service:hover{background:#111819!important}
+html[data-design="b"] .other-service:hover img{opacity:1!important;transform:scale(1)!important}
+html[data-design="b"] .other-service:hover .other-service-shade{opacity:1!important}
+html[data-design="b"] .other-service:hover:before,html[data-design="b"] .other-service:hover strong,html[data-design="b"] .other-service:hover b{color:#fff!important;border-color:rgba(255,255,255,.65)!important}
+
+/* Safety B — clean, static logo grid and a new program-content composition */
+html[data-design="b"] .safety-layout>div:first-child{text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+html[data-design="b"] .safety-layout>div:first-child:before{display:none!important}
+html[data-design="b"] .badge-zone{overflow:visible!important;padding:70px clamp(36px,6vw,82px)!important}
+html[data-design="b"] .safety-badges{overflow:visible!important;display:grid!important;grid-template-columns:repeat(5,minmax(0,1fr))!important;transform:none!important;animation:none!important;gap:54px 38px!important}
+html[data-design="b"] .safety-badge{transform:none!important;animation:none!important;min-height:130px!important}
+html[data-design="b"] .safety-badge img{max-width:160px!important;width:100%!important;height:92px!important}
+html[data-design="b"] .safety-support{
+  max-width:1180px!important;margin:120px auto!important;grid-template-columns:42% 58%!important;
+  background:#f0efeb!important;color:#111819!important;border-top:10px solid var(--orange)!important;
+}
+html[data-design="b"] .safety-support-image{min-height:680px!important;order:2!important}
+html[data-design="b"] .safety-support-copy{order:1!important;padding:74px 62px!important;color:#111819!important;background:#f0efeb!important}
+html[data-design="b"] .safety-support-copy h3{color:#111819!important;font-size:clamp(42px,3.7vw,62px)!important}
+html[data-design="b"] .safety-support-copy p{color:#505858!important}
+html[data-design="b"] .safety-layout + .safety-support + .content-columns{grid-template-columns:36% 64%!important;column-gap:90px!important;max-width:1180px!important}
+html[data-design="b"] .safety-layout + .safety-support + .content-columns>div:first-child{padding-right:0!important;text-align:left!important;align-items:flex-start!important;border-right:0!important}
+html[data-design="b"] .safety-layout + .safety-support + .content-columns>div:last-child{padding-left:30px!important}
+
+/* Contact B — actual contextual icons aligned with the copy */
+html[data-design="b"] .contact-details>div{padding:34px 30px 36px!important;display:flex!important;flex-direction:column!important;align-items:flex-start!important}
+html[data-design="b"] .contact-details>div:before{display:none!important}
+html[data-design="b"] .contact-card-icon{width:46px;height:46px;border-radius:50%;background:color-mix(in srgb,var(--orange) 14%,white);color:var(--orange);display:grid;place-items:center;margin:0 0 28px!important}
+html[data-design="b"] .contact-card-icon svg{width:21px;height:21px;stroke-width:1.8}
+html[data-design="b"] .contact-details small{margin-bottom:12px!important}
+
+@media(max-width:900px){
+ html[data-design="b"] .identifier{grid-template-columns:1fr!important;gap:20px!important;margin:40px 24px 0!important;padding-top:28px!important}
+ html[data-design="b"] .inner-hero h1{padding-top:42px!important}
+ html[data-design="b"] .editorial-page>.content-columns{grid-template-columns:1fr!important}
+ html[data-design="b"] .editorial-page>.content-columns>div:first-child{border-right:0!important;border-bottom:1px solid #d9dbd8!important}
+ html[data-design="b"] .service-cta{margin:60px 24px!important;grid-template-columns:1fr!important}
+ html[data-design="b"] .service-cta>div:last-child{padding:0 55px 52px 68px!important;max-width:none!important}
+ html[data-design="b"] .safety-support{grid-template-columns:1fr!important}
+ html[data-design="b"] .safety-support-image{order:1!important;min-height:420px!important}
+ html[data-design="b"] .safety-support-copy{order:2!important}
+ html[data-design="b"] .safety-layout + .safety-support + .content-columns{grid-template-columns:1fr!important;column-gap:0!important}
+ html[data-design="b"] .safety-layout + .safety-support + .content-columns>div:last-child{padding-left:0!important}
+}
+@media(max-width:600px){
+ html[data-design="b"] .other-service{padding-left:58px!important}
+ html[data-design="b"] .other-service:before{left:58px!important}
+ html[data-design="b"] .safety-badges{grid-template-columns:1fr 1fr!important;gap:36px 22px!important}
+ html[data-design="b"] .safety-badge img{max-width:135px!important;height:82px!important}
+}
+html[data-design="b"] .editorial-page .editorial-intro .eyebrow i,
+html[data-design="b"] .safety-layout>div:first-child small:before{display:none!important}
