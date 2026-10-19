@@ -399,3 +399,128 @@ html[data-brand='james'] footer .social-icons a:hover img{filter:invert(48%) sep
 .safety-closing-body p{font-size:17px;line-height:1.75;color:#4b5051;margin:0}
 .safety-contact-cta{margin-top:0}
 @media(max-width:700px){.safety-closing-body{grid-template-columns:1fr;gap:22px}.safety-closing-copy{padding-top:70px}.safety-closing-copy h2{font-size:clamp(54px,16vw,78px)}}
+
+/* V38 — Design Variation B. Variation A above remains unchanged. */
+.design-switcher{position:fixed;z-index:120;left:22px;bottom:22px;display:flex;align-items:center;gap:10px;padding:8px 9px 8px 13px;background:rgba(255,255,255,.96);box-shadow:0 8px 30px rgba(0,0,0,.16);border:1px solid rgba(13,17,18,.12);font-family:var(--body)}
+.design-switcher>span{font-size:9px;font-weight:800;letter-spacing:.16em;color:#5b6061}.design-switcher>div{display:flex;gap:4px}.design-switcher button{width:34px;height:34px;border:0;background:#e9e9e6;color:#111;font:800 11px var(--body);cursor:pointer;transition:.2s}.design-switcher button.active{background:var(--orange);color:#fff}.design-switcher button:hover{transform:translateY(-1px)}
+
+/* Navigation B: compact floating rail rather than full-width ruled bar */
+html[data-design="b"] .site-nav{top:18px;left:var(--gutter);right:var(--gutter);height:76px;padding:0 24px;background:rgba(9,14,15,.84);border:0;box-shadow:0 10px 38px rgba(0,0,0,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+html[data-design="b"] .site-nav.solid{top:12px;height:70px;background:rgba(255,255,255,.97);box-shadow:0 8px 28px rgba(0,0,0,.1)}
+html[data-design="b"] .site-nav nav{gap:34px}
+
+/* Homepage hero B: content anchored low/right with graphic accent rail */
+html[data-design="b"] .hero{min-height:780px}
+html[data-design="b"] .hero-shade{background:linear-gradient(0deg,rgba(5,9,10,.86) 0%,rgba(5,9,10,.18) 58%,rgba(5,9,10,.22) 100%),linear-gradient(90deg,rgba(5,9,10,.08),rgba(5,9,10,.28))}
+html[data-design="b"] .hero-content{position:absolute;left:auto;right:var(--gutter);bottom:clamp(82px,10vh,125px);padding:0 0 0 42px;width:min(850px,70vw);border-left:7px solid var(--orange)}
+html[data-design="b"] .hero h1{font-size:clamp(82px,8.8vw,146px);text-align:left;line-height:.75}
+html[data-design="b"] .hero-content p{margin:30px 0 0;max-width:600px;font-size:17px}
+html[data-design="b"] .hero-to-about{display:none}
+
+/* About B: light editorial split with the PowerGrid block nested alongside copy */
+html[data-design="b"] .about{background:#f5f4f1;color:var(--black);padding-top:clamp(115px,11vw,170px)}
+html[data-design="b"] .about-grid{grid-template-columns:.8fr 1.2fr;align-items:start;border-top:1px solid #c9cbc8;padding-top:45px}
+html[data-design="b"] .about-title{gap:22px}
+html[data-design="b"] .about-title i{width:52px;height:7px;margin-top:12px}
+html[data-design="b"] .about-title h2{font-size:clamp(68px,6.4vw,104px)}
+html[data-design="b"] .about-copy{max-width:690px}
+html[data-design="b"] .about-copy p{color:#3f4546;font-size:clamp(18px,1.45vw,22px)}
+html[data-design="b"] .identifier{max-width:1380px;margin-top:75px;margin-left:auto;margin-right:auto;min-height:170px;grid-template-columns:250px 1px 1fr;padding:38px clamp(35px,5vw,76px)}
+
+/* Services B: dark canvas + uniform editorial cards */
+html[data-design="b"] .services{background:#101718;color:#fff}
+html[data-design="b"] .services-intro{grid-template-columns:.8fr 1.2fr;align-items:start;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:55px}
+html[data-design="b"] .services h2{font-size:clamp(62px,5.6vw,92px)}
+html[data-design="b"] .services-copy{justify-self:end;max-width:560px;padding-top:46px}
+html[data-design="b"] .services-copy>p{color:#c8cdcd;font-size:17px}
+html[data-design="b"] .service-collage{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:360px;gap:18px}
+html[data-design="b"] .service-card{grid-column:span 1!important;border:1px solid rgba(255,255,255,.12)}
+html[data-design="b"] .service-card:last-child:nth-child(odd){grid-column:1/-1!important;height:390px}
+html[data-design="b"] .service-overlay{background:linear-gradient(90deg,rgba(4,7,8,.9),rgba(4,7,8,.22) 75%)}
+html[data-design="b"] .service-copy{left:32px;right:32px;bottom:30px;max-width:610px}
+html[data-design="b"] .service-copy h3{font-size:clamp(38px,3.2vw,54px)}
+
+/* Feature B: image on top, full-width branded statement strip below */
+html[data-design="b"] .feature{display:grid;grid-template-rows:minmax(520px,64vh) auto;min-height:0;padding:0;background:#101718;overflow:visible}
+html[data-design="b"] .feature>img{position:relative;grid-row:1;width:100%;height:100%;object-fit:cover}
+html[data-design="b"] .feature:after{grid-row:1;background:linear-gradient(0deg,rgba(4,8,9,.42),transparent 60%)}
+html[data-design="b"] .feature-panel{position:relative;grid-row:2;right:auto;top:auto;width:100%;max-width:none;margin:0;transform:none!important;padding:clamp(55px,6vw,86px) var(--gutter);display:grid;grid-template-columns:1.2fr .8fr;gap:80px;align-items:end}
+html[data-design="b"] .feature-panel h2{font-size:clamp(58px,6vw,98px);margin:0;max-width:800px}
+html[data-design="b"] .feature-panel p{font-size:18px;max-width:520px;padding-bottom:6px}
+
+/* Internal page heroes B: shorter, offset title block */
+html[data-design="b"] .inner-hero{height:clamp(500px,62vh,660px)}
+html[data-design="b"] .inner-hero:after{content:'';position:absolute;left:var(--gutter);bottom:0;width:9px;height:120px;background:var(--orange);z-index:2}
+html[data-design="b"] .inner-hero h1{left:calc(var(--gutter) + 40px);bottom:48px;font-size:clamp(72px,8vw,132px)}
+html[data-design="b"] .editorial-page{padding-top:clamp(95px,9vw,140px)}
+html[data-design="b"] .editorial-intro{display:grid;grid-template-columns:.7fr 1.3fr;gap:clamp(50px,8vw,120px);max-width:1380px;align-items:start}
+html[data-design="b"] .editorial-intro .eyebrow{grid-column:1}.editorial-intro h2{}
+html[data-design="b"] .content-columns{border-top:7px solid var(--orange);padding-top:48px}
+html[data-design="b"] .inner-photo-break{width:calc(100% + 2*var(--gutter));margin-left:calc(-1*var(--gutter));height:clamp(420px,50vw,700px)}
+html[data-design="b"] .about-careers-link,html[data-design="b"] .career-band{background:var(--orange)}
+
+/* Safety B keeps all content, but changes rhythm and emphasis */
+html[data-design="b"] .safety-layout{grid-template-columns:.72fr 1.28fr;gap:clamp(70px,10vw,150px)}
+html[data-design="b"] .safety-layout>div:first-child{border-top:7px solid var(--orange);padding-top:30px}
+html[data-design="b"] .safety-badges{grid-template-columns:repeat(3,minmax(0,1fr));gap:46px 34px}
+html[data-design="b"] .safety-badge img{height:92px}
+html[data-design="b"] .safety-photo-final{height:clamp(480px,55vw,760px)}
+html[data-design="b"] .safety-closing-copy{margin-left:auto;margin-right:auto;text-align:center}
+html[data-design="b"] .safety-closing-copy h2{margin-left:auto;margin-right:auto}
+html[data-design="b"] .safety-closing-body{margin-left:auto;margin-right:auto;text-align:left}
+
+/* Contact B: strong ruled information layout, no added image */
+html[data-design="b"] .contact-page{grid-template-columns:.85fr 1.15fr;max-width:1380px;margin:auto;gap:clamp(70px,10vw,150px)}
+html[data-design="b"] .contact-page>div:first-child{border-top:7px solid var(--orange);padding-top:34px}
+html[data-design="b"] .contact-details{border-top:0}
+html[data-design="b"] .contact-details>div{display:grid;grid-template-columns:160px 1fr;gap:30px;padding:30px 0}
+
+/* Service detail B: offset hero + dark editorial body + inverted CTA */
+html[data-design="b"] .service-hero{height:clamp(520px,66vh,700px)}
+html[data-design="b"] .service-hero-copy{left:auto;right:var(--gutter);bottom:55px;width:min(900px,72vw);padding-left:34px;border-left:8px solid var(--orange)}
+html[data-design="b"] .service-hero h1{font-size:clamp(74px,8.2vw,136px)}
+html[data-design="b"] .service-body{background:#101718;color:#fff}
+html[data-design="b"] .service-article p{color:#c7cccc}
+html[data-design="b"] .service-lead{color:#fff!important}
+html[data-design="b"] .service-editorial-grid{grid-template-columns:1.15fr .85fr;border-color:rgba(255,255,255,.18)}
+html[data-design="b"] .service-capabilities{border-color:rgba(255,255,255,.18);grid-template-columns:1fr 1fr}
+html[data-design="b"] .service-article li{color:#d8dada}
+html[data-design="b"] .service-cta{background:#f5f4f1;color:var(--black);border-top:10px solid var(--orange)}
+html[data-design="b"] .service-cta .eyebrow i{background:var(--orange)}
+html[data-design="b"] .service-cta-button{background:var(--orange);color:#fff}
+html[data-design="b"] .other-services{background:#fff}
+
+/* Footer B: brand rail and flatter horizontal hierarchy */
+html[data-design="b"] footer{background:#111718;border-top:12px solid var(--orange);padding-top:75px}
+html[data-design="b"] .footer-main{grid-template-columns:1.3fr .8fr 1fr .8fr;align-items:center;padding-bottom:65px}
+html[data-design="b"] .footer-parent,html[data-design="b"] .social{border-left:0;padding-left:0}
+html[data-design="b"] .footer-main nav{border-left:1px solid rgba(255,255,255,.22);padding-left:42px}
+
+@media(max-width:900px){
+ .design-switcher{left:14px;bottom:14px}
+ html[data-design="b"] .site-nav{left:14px;right:14px;top:12px;padding:0 18px}
+ html[data-design="b"] .hero-content{right:28px;left:28px;bottom:80px;width:auto}
+ html[data-design="b"] .about-grid,html[data-design="b"] .services-intro,html[data-design="b"] .editorial-intro{grid-template-columns:1fr}
+ html[data-design="b"] .about-copy{margin-left:0}
+ html[data-design="b"] .service-collage{grid-template-columns:1fr;grid-auto-rows:390px}
+ html[data-design="b"] .service-card,html[data-design="b"] .service-card:last-child:nth-child(odd){grid-column:1!important;height:auto}
+ html[data-design="b"] .feature-panel{grid-template-columns:1fr;gap:28px}
+ html[data-design="b"] .safety-badges{grid-template-columns:repeat(2,minmax(0,1fr))}
+ html[data-design="b"] .contact-page{grid-template-columns:1fr}
+ html[data-design="b"] .service-editorial-grid,html[data-design="b"] .service-capabilities{grid-template-columns:1fr}
+ html[data-design="b"] .mobile-nav-panel{left:-14px;right:-14px;top:-12px;width:auto}
+}
+@media(max-width:600px){
+ .design-switcher{padding:6px 7px 6px 9px;gap:7px}.design-switcher>span{display:none}.design-switcher button{width:31px;height:31px}
+ html[data-design="b"] .hero-content{padding-left:22px;border-left-width:5px}.hero h1{font-size:19vw}
+ html[data-design="b"] .identifier{grid-template-columns:1fr;gap:24px}
+ html[data-design="b"] .services{padding-left:20px;padding-right:20px}
+ html[data-design="b"] .service-collage{display:grid}.service-card{margin-bottom:0}
+ html[data-design="b"] .feature{grid-template-rows:390px auto;padding:0}
+ html[data-design="b"] .feature-panel{padding:45px 24px}
+ html[data-design="b"] .inner-photo-break{width:calc(100% + 48px);margin-left:-24px}
+ html[data-design="b"] .safety-badges{grid-template-columns:1fr 1fr}
+ html[data-design="b"] .contact-details>div{grid-template-columns:1fr;gap:8px}
+ html[data-design="b"] .service-hero-copy{left:24px;right:24px;width:auto;padding-left:20px}
+ html[data-design="b"] .footer-main nav{border-left:0;padding-left:0}
+}
