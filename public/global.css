@@ -952,3 +952,89 @@ html[data-design="b"] .contact-details small{margin-bottom:12px!important}
 }
 html[data-design="b"] .editorial-page .editorial-intro .eyebrow i,
 html[data-design="b"] .safety-layout>div:first-child small:before{display:none!important}
+
+/* === V42: Variation B refinement pass === */
+/* Internal B heroes: keep title anchored to bottom with safe breathing room. */
+html[data-design="b"] .inner-hero h1{
+  align-items:flex-end!important;
+  padding:0 clamp(42px,5vw,78px) 34px!important;
+}
+
+/* About / Careers: centered, balanced editorial blocks. */
+html[data-design="b"] .editorial-page>.content-columns{
+  width:min(1160px,100%)!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+html[data-design="b"] .editorial-page>.content-columns>div:first-child{
+  padding-left:64px!important;
+  padding-right:64px!important;
+}
+html[data-design="b"] .editorial-page>.content-columns>div:last-child{
+  padding-left:64px!important;
+  padding-right:64px!important;
+}
+/* Opportunities card overlaps further into the career photograph. */
+html[data-design="b"] .career-band{margin-top:-230px!important}
+
+/* About CTA B: full-width typographic banner, not a two-column card. */
+html[data-design="b"] .about-careers-link{
+  position:relative!important;
+  width:min(1160px,100%)!important;
+  margin:110px auto 0!important;
+  padding:78px clamp(42px,7vw,100px)!important;
+  background:var(--orange)!important;
+  color:#fff!important;
+  border:0!important;
+  display:block!important;
+  text-align:center!important;
+  overflow:hidden!important;
+}
+html[data-design="b"] .about-careers-link:before{
+  content:'JOIN THE TEAM';position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);
+  font:700 clamp(82px,10vw,160px)/.72 var(--heading);white-space:nowrap;color:rgba(255,255,255,.08);pointer-events:none;
+}
+html[data-design="b"] .about-careers-link>div{position:relative;z-index:1;max-width:760px;margin:auto}
+html[data-design="b"] .about-careers-link small{color:#fff!important}
+html[data-design="b"] .about-careers-link h3{font-size:clamp(56px,6vw,92px)!important;line-height:.82!important;margin:16px 0 24px!important;color:#fff!important}
+html[data-design="b"] .about-careers-link p{max-width:620px!important;margin:0 auto 34px!important;color:#fff!important;font-size:17px!important;line-height:1.65!important}
+html[data-design="b"] .about-careers-link .about-careers-button{position:relative;z-index:1;background:#fff!important;color:#111819!important;margin-top:32px!important;padding:19px 27px!important}
+html[data-design="b"] .about-careers-link .about-careers-button:hover{background:#111819!important;color:#fff!important}
+
+/* Service + Safety CTA B: centered branded statement with floating action, entirely different from A. */
+html[data-design="b"] .service-cta{
+  position:relative!important;width:auto!important;min-height:430px!important;margin:110px var(--gutter)!important;
+  padding:84px clamp(40px,8vw,120px)!important;display:flex!important;flex-direction:column!important;
+  align-items:center!important;justify-content:center!important;text-align:center!important;
+  background:var(--orange)!important;color:#fff!important;border:0!important;overflow:hidden!important;
+}
+html[data-design="b"] .service-cta:before{
+  content:'PROJECT';position:absolute!important;left:50%!important;top:auto!important;bottom:-36px!important;transform:translateX(-50%)!important;
+  width:auto!important;height:auto!important;background:none!important;color:rgba(255,255,255,.085)!important;
+  font:700 clamp(120px,16vw,250px)/.7 var(--heading)!important;white-space:nowrap!important;
+}
+html[data-design="b"] .service-cta>div:first-child{padding:0!important;position:relative;z-index:1;max-width:900px!important}
+html[data-design="b"] .service-cta>div:first-child h2{color:#fff!important;font-size:clamp(64px,7vw,112px)!important;line-height:.78!important;margin:18px 0 30px!important}
+html[data-design="b"] .service-cta>div:last-child{padding:0!important;background:transparent!important;position:relative;z-index:1;max-width:620px!important;align-items:center!important}
+html[data-design="b"] .service-cta>div:last-child p{color:#fff!important;margin:0 auto 30px!important;max-width:600px!important}
+html[data-design="b"] .service-cta-button{width:auto!important;background:#fff!important;color:#111819!important;padding:19px 28px!important}
+html[data-design="b"] .service-cta-button:hover{background:#111819!important;color:#fff!important}
+
+/* Safety B: no sticky/overlap behavior; larger static logo grid. */
+html[data-design="b"] .safety-layout>div:first-child{position:static!important;top:auto!important;align-self:auto!important}
+html[data-design="b"] .badge-zone{overflow:visible!important}
+html[data-design="b"] .safety-badges{position:static!important;overflow:visible!important;transform:none!important;animation:none!important}
+html[data-design="b"] .safety-badge{position:static!important;transform:none!important;animation:none!important;min-height:150px!important}
+html[data-design="b"] .safety-badge img{max-width:190px!important;height:112px!important;object-fit:contain!important}
+
+/* Contact B: brand circle + white line icon. */
+html[data-design="b"] .contact-card-icon{background:var(--orange)!important;color:#fff!important}
+html[data-design="b"] .contact-card-icon svg{color:#fff!important;stroke:#fff!important}
+
+@media(max-width:900px){
+ html[data-design="b"] .inner-hero h1{padding:0 24px 28px!important}
+ html[data-design="b"] .career-band{margin-top:-120px!important}
+ html[data-design="b"] .about-careers-link{margin-top:75px!important;padding:64px 28px!important}
+ html[data-design="b"] .service-cta{margin:70px 24px!important;padding:70px 28px!important;min-height:400px!important}
+ html[data-design="b"] .service-cta>div:last-child{padding:0!important}
+}
