@@ -42,12 +42,7 @@ export function HomePage() {
   return (
     <>
       <Slot name="Hero" variant={L.hero}>
-        <Hero
-          {...b.home.hero}
-          images={b.images.hero}
-          action={{ label: 'Explore services', href: '#services' }}
-          index={b.services.map(s => ({ label: s.name, href: `/services/${s.slug}` }))}
-        />
+        <Hero {...b.home.hero} images={b.images.hero} action={{ label: 'Explore services', href: '#services' }} />
       </Slot>
       <Slot name="Who We Are" variant={L.whoWeAre}>
         <Who eyebrow="Who we are" heading={b.home.who.heading} body={b.home.who.body} image={b.images.who} secondaryImage={b.images.about} action={{ label: 'About us', href: '/about' }} />

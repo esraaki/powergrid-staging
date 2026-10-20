@@ -1,4 +1,4 @@
-# PowerGrid Design System — v48
+# PowerGrid Design System — v49
 
 A multi-brand website kit for the PowerGrid Services family of companies.
 
@@ -37,7 +37,7 @@ Test for distinctness: remove colour, logo and font — A, B and C are still rec
 
 | Slot | A | B | C |
 |---|---|---|---|
-| Hero | full-bleed crossfade | split brand field + photo | monumental type + panorama |
+| Hero | full-bleed crossfade | split brand field + photo | monumental headline + wide photo |
 | Who We Are | dark statement | indexed editorial + framed image | statement paragraph + staggered images |
 | PowerGrid identifier | brand-colour band | ruled separator | inset dark plate |
 | Services | count-aware photo mosaic | numbered index, hover image reveal | split navigator, sticky image stage |
@@ -96,7 +96,7 @@ Heading metrics (`headingScale`, leading, tracking, case) normalise very differe
 
 ## Adding a company
 
-1. Copy `src/data/brands/ampp.ts` → `src/data/brands/<company>.ts` and fill it in. Services can be any count, because the mosaic, index, navigator, hero index, nav dropdown and footer all adapt.
+1. Copy `src/data/brands/ampp.ts` → `src/data/brands/<company>.ts` and fill it in. Services can be any count, because the mosaic, index, navigator, nav dropdown and footer all adapt.
 2. Put logos in `public/assets/` (one for light grounds, one for dark).
 3. Add an entry to `SITES` in `src/data/sites.ts` with its brand and a curated `SiteLayout`.
 
@@ -106,12 +106,14 @@ There are no CSS edits and no component edits.
 
 ## Prototype controls (staging only)
 
-- **Bottom-left: DESIGN A / B / C.** Review one complete design direction (every slot from one library), shown in the current company's brand. The layers button tags every section with its slot + variant.
-- **Bottom-right: MIXED SITES X / Y / Z.** Load a finished site: AMPP, CSR or James with its own curated A/B/C mix. When a design preset is active, the current company is underlined in its brand colour.
+A thin black ribbon is fixed to the bottom of the viewport. The page reserves its height, so nothing is hidden behind it.
+
+- **Left: DESIGN A / B / C.** Review one complete design direction (every slot from one library), shown in the current company's brand. The layers button tags every section with its slot + variant, and hovering the group shows what you're viewing.
+- **Right: X / Y / Z.** Brand-colour squares: X = AMPP, Y = CSR, Z = James. Each loads that company's finished site with its curated A/B/C mix. The active site has a white ring. While a design preset is active, the current company's square stays brighter.
 - The site opens on **X / AMPP (mixed)**. Choices persist while you navigate, and switching company on a service page maps to the service at the same position.
 - Shareable links: `?site=y&view=mixed`, `?site=z&view=C`.
 
-These live in `src/prototype/` and `src/styles/prototype.css`; delete both (and their two lines in `App.tsx`) for production sites.
+These live in `src/prototype/` and `src/styles/prototype.css`; delete both (and the `<ProtoBar>` in `App.tsx`) for production sites.
 
 ---
 

@@ -82,9 +82,7 @@ export type Brand = {
 
 export type Action = { label: string; href: string; external?: boolean };
 
-export type HeroData = { eyebrow: string; title: string[]; body: string; images: string[]; action: Action;
-  /** Optional quick links (used by Hero C as a ruled service index). */
-  index?: Action[] };
+export type HeroData = { eyebrow: string; title: string[]; body: string; images: string[]; action: Action };
 export type WhoData = { eyebrow: string; heading: string; body: string; image: string; secondaryImage?: string; action: Action };
 export type PowerGridData = { statement: string };
 export type ServicesData = { eyebrow: string; title: string[]; intro: string; services: Service[] };

@@ -1,59 +1,84 @@
-/* Staging-only presentation controls. Deliberately neutral so they never read as part of a brand. */
-/* Footer reserves room so fixed controls never cover the legal line. */
-.footer.footer { padding-bottom: 88px; }
-.proto {
+/* ==================================================================
+   Staging-only presentation toolbar — a thin black ribbon fixed to
+   the bottom of the viewport. Deliberately neutral so it never reads
+   as part of a company site.
+   ================================================================== */
+:root { --protobar-h: 36px; }
+
+/* Reserve the ribbon's height so footer content is never hidden behind it. */
+body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
+.mnav__body { padding-bottom: calc(40px + var(--protobar-h)); }
+
+.protobar {
   position: fixed;
-  bottom: 16px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--protobar-h);
+  padding: 0 12px;
+  background: #0a0b0c;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: #fff;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 12px;
-  color: #fff;
 }
-.proto--design { left: 16px; display: flex; flex-direction: column-reverse; gap: 6px; align-items: flex-start; }
-.proto--site { right: 16px; }
-.proto__row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 44px;
-  padding: 0 6px 0 12px;
-  background: rgba(13, 15, 16, 0.92);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-}
-.proto__label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.62); white-space: nowrap; }
-.proto__seg, .proto__sites { display: flex; }
-.proto__seg button, .proto__icon { display: grid; place-items: center; width: 32px; height: 32px; font-weight: 700; color: rgba(255, 255, 255, 0.85); }
-.proto__seg button[aria-pressed='true'] { background: #fff; color: #0d0f10; }
-.proto__seg button:not([aria-pressed='true']):hover, .proto__icon:hover { background: rgba(255, 255, 255, 0.12); }
-.proto__icon { border-left: 1px solid rgba(255, 255, 255, 0.16); margin-left: 2px; }
-.proto__icon.is-on { color: #ffc233; }
-.proto__note { display: none; max-width: 280px; padding: 8px 12px; background: rgba(13, 15, 16, 0.92); color: rgba(255, 255, 255, 0.82); font-size: 11.5px; line-height: 1.4; }
-.proto--design:hover .proto__note, .proto--design:has(:focus-visible) .proto__note { display: block; }
+.protobar__group { position: relative; display: flex; align-items: center; gap: 4px; }
+.protobar__label { margin-right: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
 
-/* Mixed sites: letter + company, with the company's colour as a marker */
-.proto__sites button {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  height: 32px;
-  padding: 0 10px;
-  color: rgba(255, 255, 255, 0.85);
+/* A / B / C */
+.protobar__seg, .protobar__icon {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 24px;
+  font-size: 12px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.8);
 }
-.proto__sites button::before { content: ''; width: 8px; height: 8px; background: var(--site-accent); flex: none; }
-.proto__sites b { font-weight: 800; }
-.proto__sites span { font-weight: 500; }
-.proto__sites button:hover { background: rgba(255, 255, 255, 0.12); }
-.proto__sites button[aria-pressed='true'] { background: #fff; color: #0d0f10; }
-.proto__sites button.is-brand { box-shadow: inset 0 -2px 0 var(--site-accent); }
+.protobar__seg:hover, .protobar__icon:hover { background: rgba(255, 255, 255, 0.12); }
+.protobar__seg[aria-pressed='true'] { background: #fff; color: #0a0b0c; }
+.protobar__icon { margin-left: 6px; border-left: 1px solid rgba(255, 255, 255, 0.16); width: 32px; }
+.protobar__icon.is-on { color: #ffc233; }
+
+/* X / Y / Z — brand-colour squares */
+.protobar__site {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #fff;
+  opacity: 0.7;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+.protobar__site + .protobar__site { margin-left: 4px; }
+.protobar__site:hover, .protobar__site.is-brand { opacity: 0.9; }
+.protobar__site[aria-pressed='true'] { opacity: 1; box-shadow: 0 0 0 2px #0a0b0c, 0 0 0 3px #fff; }
+
+/* Context note, shown above the ribbon on hover / keyboard focus */
+.protobar__note {
+  display: none;
+  position: absolute;
+  left: -12px;
+  bottom: calc(100% + 7px);
+  width: max-content;
+  max-width: min(340px, calc(100vw - 24px));
+  padding: 7px 12px;
+  background: #0a0b0c;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 11.5px;
+  line-height: 1.4;
+}
+.protobar__design:hover .protobar__note, .protobar__design:has(:focus-visible) .protobar__note { display: block; }
 
 @media (max-width: 640px) {
-  .proto { bottom: 10px; }
-  .proto--design { left: 10px; }
-  .proto--site { right: 10px; }
-  .proto__row { height: 40px; padding-left: 4px; }
-  .proto__label { display: none; }
-  .proto__sites span { display: none; }
-  .proto__sites button { padding: 0 9px; }
-  .proto--design:hover .proto__note { display: none; }
+  .protobar { padding: 0 8px; }
+  .protobar__label { display: none; }
+  .protobar__design:hover .protobar__note { display: none; }
 }

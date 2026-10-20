@@ -7,7 +7,7 @@ import { SiteCtx, type SiteState } from './system/site';
 import { Navigation } from './components/Navigation';
 import { FOOTER } from './sections/Footer';
 import { AboutPage, CareersPage, ContactPage, HomePage, NotFoundPage, SafetyPage, ServicePage, navToneFor } from './pages/Pages';
-import { DesignSwitcher, SiteSwitcher } from './prototype/Switchers';
+import { ProtoBar } from './prototype/Switchers';
 
 const store = {
   get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } },
@@ -91,8 +91,12 @@ export default function App() {
         {page}
       </main>
       <Footer key={`${site.key}-${layout.footer}`} home={route.page === 'home'} />
-      <DesignSwitcher onDesign={setMode} onLabels={() => setShowLabels(v => !v)} isHome={route.page === 'home'} />
-      <SiteSwitcher onSite={k => { setSiteKey(k); setMode('mixed'); }} />
+      <ProtoBar
+        onDesign={setMode}
+        onSite={k => { setSiteKey(k); setMode('mixed'); }}
+        onLabels={() => setShowLabels(v => !v)}
+        isHome={route.page === 'home'}
+      />
     </SiteCtx.Provider>
   );
 }

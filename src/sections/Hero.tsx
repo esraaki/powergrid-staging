@@ -1,9 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight } from 'lucide-react';
 import type { HeroData, Variant } from '../data/types';
 import { Button, Display, Eyebrow, Img, TextLink, EASE } from '../components/ui';
-import { Link } from '../system/router';
 import type { NavTone } from '../components/Navigation';
 
 function useCycle(length: number, ms = 7000) {
@@ -90,9 +88,9 @@ const HeroB: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
   </section>
 );
 
-/* C — Monumental type. The headline carries the page; one wide photograph and a
-   ruled service index sit beneath it on the same 12-column frame. */
-const HeroC: FC<HeroData> = ({ eyebrow, title, body, images, action, index }) => (
+/* C — Monumental type. The headline carries the page; one wide photograph sits
+   beneath it on the same 12-column frame. */
+const HeroC: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
   <section className="hero-c" aria-labelledby="hero-title">
     <div className="container">
       <div className="hero-c__top">
@@ -108,19 +106,6 @@ const HeroC: FC<HeroData> = ({ eyebrow, title, body, images, action, index }) =>
       <motion.div className="hero-c__stage" {...fade(0.15)}>
         <Img src={images[0]} eager sizes="92vw" />
       </motion.div>
-      {index && index.length > 0 && (
-        <motion.ol className="hero-c__index" style={{ '--n': Math.min(index.length, 6) } as React.CSSProperties} {...fade(0.4)}>
-          {index.slice(0, 6).map((l, n) => (
-            <li key={l.href}>
-              <Link href={l.href}>
-                <span className="hero-c__num" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span>
-                <span className="hero-c__label">{l.label}</span>
-                <ArrowRight size={18} aria-hidden="true" />
-              </Link>
-            </li>
-          ))}
-        </motion.ol>
-      )}
     </div>
   </section>
 );

@@ -42,9 +42,12 @@ const ensure = (color: string, against: string, toward: string, ratio = 4.6) => 
   return c;
 };
 
+/** Brand colour adjusted so white text on it passes 4.5:1. */
+export const fieldColor = (accent: string) => ensure(accent, '#ffffff', '#000000');
+
 export function brandVars(brand: Brand): Record<string, string> {
   const a = brand.accent;
-  const field = ensure(a, '#ffffff', '#000000');
+  const field = fieldColor(a);
   const t = brand.type;
   return {
     '--accent': a,
