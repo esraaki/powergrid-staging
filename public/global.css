@@ -1038,3 +1038,78 @@ html[data-design="b"] .contact-card-icon svg{color:#fff!important;stroke:#fff!im
  html[data-design="b"] .service-cta{margin:70px 24px!important;padding:70px 28px!important;min-height:400px!important}
  html[data-design="b"] .service-cta>div:last-child{padding:0!important}
 }
+
+/* === V43: Variation B spacing + internal-page refinements === */
+/* About: keep the title at the bottom of the brand slab with enough breathing room to remain visible. */
+html[data-design="b"] .page-about .inner-hero h1{
+  align-items:flex-end!important;
+  padding:0 clamp(42px,5vw,78px) 30px!important;
+}
+/* Give the About approach and CTA more horizontal room, and keep their widths matched. */
+html[data-design="b"] .page-about .editorial-page>.content-columns,
+html[data-design="b"] .page-about .about-careers-link{
+  width:min(1320px,calc(100% - 2*var(--gutter)))!important;
+  max-width:1320px!important;
+}
+html[data-design="b"] .page-about .editorial-page>.content-columns{grid-template-columns:36% 64%!important}
+html[data-design="b"] .page-about .editorial-page>.content-columns>div:first-child{padding-left:58px!important;padding-right:58px!important}
+html[data-design="b"] .page-about .editorial-page>.content-columns>div:last-child{padding-left:78px!important;padding-right:78px!important}
+
+/* Careers: widen Why Join Us so headings and body have a calmer line length. */
+html[data-design="b"] .page-careers .editorial-page>.content-columns{
+  width:min(1320px,calc(100% - 2*var(--gutter)))!important;
+  max-width:1320px!important;
+  grid-template-columns:34% 66%!important;
+}
+html[data-design="b"] .page-careers .editorial-page>.content-columns>div:first-child h3{max-width:390px!important}
+
+/* Safety hero: nudge the title upward slightly without moving it to the top. */
+html[data-design="b"] .page-safety .inner-hero h1{
+  align-items:flex-end!important;
+  padding:0 clamp(42px,5vw,78px) 58px!important;
+}
+/* Program Content: more room for copy, smaller image footprint. */
+html[data-design="b"] .page-safety .safety-support{
+  max-width:1280px!important;
+  grid-template-columns:64% 36%!important;
+  align-items:center!important;
+}
+html[data-design="b"] .page-safety .safety-support-copy{padding:72px 76px!important}
+html[data-design="b"] .page-safety .safety-support-image{
+  min-height:0!important;
+  height:500px!important;
+  align-self:center!important;
+}
+html[data-design="b"] .page-safety .safety-support-image img{height:100%!important;object-fit:cover!important}
+/* Training image: intentionally smaller than the full editorial width. */
+html[data-design="b"] .page-safety .safety-photo-final{
+  width:min(1080px,calc(100% - 2*var(--gutter)))!important;
+  height:500px!important;
+  margin:95px auto 0!important;
+}
+/* Consistent Approach: normal stacked paragraphs instead of side-by-side copy. */
+html[data-design="b"] .page-safety .safety-closing-copy{max-width:900px!important}
+html[data-design="b"] .page-safety .safety-closing-body{display:block!important;max-width:760px!important}
+html[data-design="b"] .page-safety .safety-closing-body p{display:block!important;width:100%!important;margin:0 0 20px!important}
+
+/* Contact: nudge title upward and tighten icon/title/value rhythm. */
+html[data-design="b"] .page-contact .inner-hero h1{
+  align-items:flex-end!important;
+  padding:0 clamp(42px,5vw,78px) 58px!important;
+}
+html[data-design="b"] .page-contact .contact-card-icon{margin-bottom:15px!important}
+html[data-design="b"] .page-contact .contact-details small{margin-bottom:7px!important}
+html[data-design="b"] .page-contact .contact-details strong{margin-top:0!important}
+
+@media(max-width:900px){
+  html[data-design="b"] .page-about .inner-hero h1{padding:0 24px 26px!important}
+  html[data-design="b"] .page-safety .inner-hero h1,
+  html[data-design="b"] .page-contact .inner-hero h1{padding:0 24px 40px!important}
+  html[data-design="b"] .page-about .editorial-page>.content-columns,
+  html[data-design="b"] .page-about .about-careers-link,
+  html[data-design="b"] .page-careers .editorial-page>.content-columns{width:calc(100% - 48px)!important}
+  html[data-design="b"] .page-safety .safety-support{grid-template-columns:1fr!important}
+  html[data-design="b"] .page-safety .safety-support-image{height:400px!important}
+  html[data-design="b"] .page-safety .safety-support-copy{padding:50px 34px!important}
+  html[data-design="b"] .page-safety .safety-photo-final{width:calc(100% - 48px)!important;height:400px!important}
+}
