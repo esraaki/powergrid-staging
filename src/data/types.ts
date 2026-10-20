@@ -120,16 +120,17 @@ export type SiteLayout = {
 };
 
 /**
- * A finished company website: its brand + content, and the curated mix of
- * A / B / C sections it is assembled from.
+ * A demonstration website: one company's brand + content, assembled from a
+ * curated mix of Design A / B / C sections.
  */
-export type Site = {
+export type Website = {
+  /** '1' | '2' | '3' */
   key: string;
-  /** Prototype label, e.g. "Variation X" */
+  /** "Website 1" */
   label: string;
   brand: Brand;
   layout: SiteLayout;
 };
 
-/** Prototype view: a pure design preset (A/B/C) or the site's own mixed composition. */
-export type ViewMode = Variant | 'mixed';
+/** What the prototype is showing: a pure design direction, or one of the mixed websites. */
+export type View = { kind: 'design'; design: Variant } | { kind: 'website'; website: Website };

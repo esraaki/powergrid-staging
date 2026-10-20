@@ -1,44 +1,30 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type { ViewMode } from './data/types';
-import { getSite, resolveLayout } from './data/sites';
+import type { View } from './data/types';
+import { INITIAL_VIEW, resolveView } from './data/websites';
 import { brandVars, loadBrandFonts } from './system/theme';
 import { parseRoute, useRouter } from './system/router';
 import { SiteCtx, type SiteState } from './system/site';
 import { Navigation } from './components/Navigation';
+import { Slot } from './components/ui';
 import { FOOTER } from './sections/Footer';
 import { AboutPage, CareersPage, ContactPage, HomePage, NotFoundPage, SafetyPage, ServicePage, navToneFor } from './pages/Pages';
 import { ProtoBar } from './prototype/Switchers';
 
-const store = {
-  get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } },
-  set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
-};
-
-/* ?site=x&view=B lets a presenter share a specific combination. */
-function initial(key: 'site' | 'view', fallback: string) {
-  const params = new URLSearchParams(window.location.search);
-  const q = params.get(key) ?? (key === 'view' ? params.get('design') : null);
-  return q ?? store.get(`pg-${key}`) ?? fallback;
-}
-
-function parseMode(v: string): ViewMode {
-  const u = v.toUpperCase();
-  return u === 'A' || u === 'B' || u === 'C' ? u : 'mixed';
-}
-
 export default function App() {
   const { path, navigate } = useRouter();
-  const [siteKey, setSiteKey] = useState(() => getSite(initial('site', 'x')).key);
-  const [mode, setMode] = useState<ViewMode>(() => parseMode(initial('view', 'mixed')));
+  /* Prototype state lives in memory only: it survives in-app navigation, and every
+     full page refresh starts the presentation again from pure Design A. */
+  const [view, setView] = useState<View>(INITIAL_VIEW);
   const [showLabels, setShowLabels] = useState(false);
 
-  const site = getSite(siteKey);
-  const layout = resolveLayout(site, mode);
-  const brand = site.brand;
-  const state: SiteState = useMemo(() => ({ site, brand, layout, mode, showLabels }), [site, brand, layout, mode, showLabels]);
+  const { brand, layout } = resolveView(view);
+  const state: SiteState = useMemo(() => ({ brand, layout, view, showLabels }), [brand, layout, view, showLabels]);
 
-  useEffect(() => store.set('pg-site', siteKey), [siteKey]);
-  useEffect(() => store.set('pg-view', mode), [mode]);
+  // Layers explain how a mixed website was assembled — not meaningful for a pure design.
+  const selectView = (next: View) => {
+    setView(next);
+    if (next.kind === 'design') setShowLabels(false);
+  };
 
   // Brand tokens on :root so the whole document (incl. switchers) follows the brand.
   useLayoutEffect(() => {
@@ -82,7 +68,7 @@ export default function App() {
   const Footer = FOOTER[layout.footer];
   const tone = route.page === 'service' && !service ? 'solid' : navToneFor(route, layout);
   // Remount the page when the composition changes so section state / reveals never go stale.
-  const pageKey = `${site.key}|${JSON.stringify(layout)}|${path}`;
+  const pageKey = `${brand.key}|${JSON.stringify(layout)}|${path}`;
 
   return (
     <SiteCtx.Provider value={state}>
@@ -90,13 +76,10 @@ export default function App() {
       <main id="main" key={pageKey} className={`page page--${route.page} nav-${tone}`}>
         {page}
       </main>
-      <Footer key={`${site.key}-${layout.footer}`} home={route.page === 'home'} />
-      <ProtoBar
-        onDesign={setMode}
-        onSite={k => { setSiteKey(k); setMode('mixed'); }}
-        onLabels={() => setShowLabels(v => !v)}
-        isHome={route.page === 'home'}
-      />
+      <Slot name="Footer" variant={layout.footer}>
+        <Footer key={`${brand.key}-${layout.footer}`} home={route.page === 'home'} />
+      </Slot>
+      <ProtoBar onView={selectView} onLabels={() => setShowLabels(v => !v)} isHome={route.page === 'home'} />
     </SiteCtx.Provider>
   );
 }

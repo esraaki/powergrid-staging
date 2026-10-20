@@ -40,7 +40,7 @@ export function RouterProvider({ children }: { children: React.ReactNode }) {
     const [pathname, hash] = to.split('#');
     const target = pathname || window.location.pathname;
     if (target !== window.location.pathname) {
-      window.history[opts?.replace ? 'replaceState' : 'pushState'](null, '', target + window.location.search);
+      window.history[opts?.replace ? 'replaceState' : 'pushState'](null, '', target);
       setPath(target);
       if (!hash) window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
     }

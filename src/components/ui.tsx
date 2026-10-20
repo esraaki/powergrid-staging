@@ -112,7 +112,7 @@ export function Slot({ name, variant, children }: { name: string; variant: strin
     <div className="slot" data-section={name} data-variant={variant}>
       {showLabels && (
         <span className="slot__tag" aria-hidden="true">
-          {name} <b>{variant}</b>
+          {name}<i aria-hidden="true"> · </i><b>{variant}</b>
         </span>
       )}
       {children}

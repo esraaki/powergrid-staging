@@ -1,4 +1,4 @@
-# PowerGrid Design System — v49
+# PowerGrid Design System — v50
 
 A multi-brand website kit for the PowerGrid Services family of companies.
 
@@ -21,7 +21,7 @@ Deploys to Vercel as-is (`vercel.json` rewrites every route to `index.html`, so 
 |---|---|---|
 | **Brand** | name, logos, one accent colour, heading/body fonts, copy, services (any count), photography, contact, social, careers URL, certifications | `src/data/brands/*.ts` |
 | **Section variants** | layout / composition only — `A`, `B`, `C` per section | `src/sections/*.tsx` + `src/styles/*.css` |
-| **Site layout** | which variant renders in each slot | `src/data/sites.ts` |
+| **Composition** | which variant renders in each slot (`SiteLayout`) | `src/data/websites.ts` |
 
 Brands never reference variants and variants never reference brands. AMPP is not "Design A".
 
@@ -49,11 +49,13 @@ Test for distinctness: remove colour, logo and font — A, B and C are still rec
 
 Every variant of a section consumes the **same data contract** (`src/data/types.ts`), so swapping `services: 'A'` → `'C'` needs no content changes.
 
-### Mixed sites: X / Y / Z
+### Designs and Websites
 
-The three real companies are the three finished-site examples. Each is art-directed from all three libraries:
+- **Designs A / B / C** are the three pure design directions: every slot comes from one library, always shown in the default brand (AMPP). They're defined in `DESIGNS`.
+- **Websites 1 / 2 / 3** are demonstration websites, each a real company art-directed from all three libraries. They're defined in `WEBSITES`.
 
-| Slot | **X — AMPP** | **Y — CSR** | **Z — James** |
+
+| Slot | **Website 1 — AMPP** | **Website 2 — CSR** | **Website 3 — James** |
 |---|---|---|---|
 | Hero | A | B | C |
 | Who We Are | B | C | A |
@@ -69,8 +71,8 @@ The three real companies are the three finished-site examples. Each is art-direc
 | Nav social | solid | outline | solid |
 
 ```ts
-// src/data/sites.ts
-const layoutX: SiteLayout = {
+// src/data/websites.ts
+const website1: SiteLayout = {
   home: { hero: 'A', whoWeAre: 'B', powergrid: 'A', services: 'C', feature: 'A' },
   pageHero: 'A',            // one inner-hero system per site → consistent titles everywhere
   editorial: 'B', media: 'A', badges: 'A', capabilities: 'A', otherServices: 'B', contact: 'A',
@@ -98,7 +100,7 @@ Heading metrics (`headingScale`, leading, tracking, case) normalise very differe
 
 1. Copy `src/data/brands/ampp.ts` → `src/data/brands/<company>.ts` and fill it in. Services can be any count, because the mosaic, index, navigator, nav dropdown and footer all adapt.
 2. Put logos in `public/assets/` (one for light grounds, one for dark).
-3. Add an entry to `SITES` in `src/data/sites.ts` with its brand and a curated `SiteLayout`.
+3. Add an entry to `WEBSITES` in `src/data/websites.ts` with its brand and a curated `SiteLayout`.
 
 There are no CSS edits and no component edits.
 
@@ -106,12 +108,18 @@ There are no CSS edits and no component edits.
 
 ## Prototype controls (staging only)
 
-A thin black ribbon is fixed to the bottom of the viewport. The page reserves its height, so nothing is hidden behind it.
+A thin black toolbar that stays **hidden** so the website fills the screen.
 
-- **Left: DESIGN A / B / C.** Review one complete design direction (every slot from one library), shown in the current company's brand. The layers button tags every section with its slot + variant, and hovering the group shows what you're viewing.
-- **Right: X / Y / Z.** Brand-colour squares: X = AMPP, Y = CSR, Z = James. Each loads that company's finished site with its curated A/B/C mix. The active site has a white ring. While a design preset is active, the current company's square stays brighter.
-- The site opens on **X / AMPP (mixed)**. Choices persist while you navigate, and switching company on a service page maps to the service at the same position.
-- Shareable links: `?site=y&view=mixed`, `?site=z&view=C`.
+- **Desktop:** move the pointer to the bottom edge of the window. It reveals within a 14px invisible strip and hides about 0.7s after you move away.
+- **Touch:** tap the small handle tab at the bottom centre. Hide it with the ⌄ button, or it tucks away after 5s idle.
+- **Keyboard:** tabbing into any control reveals it.
+
+| Left | Right |
+|---|---|
+| **DESIGN A / B / C**: show a pure design direction | **WEBSITES 1 / 2 / 3**: brand-colour squares; 1 = AMPP, 2 = CSR, 3 = James |
+| | **Layers** (shown only while a website is active): tags every section, footer included, with the design it came from, e.g. `HERO · B` |
+
+**State is in memory only.** Your selection survives in-app navigation and browser back/forward. A full page refresh always restarts the presentation at pure **Design A** (AMPP brand, Layers off). Nothing is stored in the URL, localStorage or sessionStorage.
 
 These live in `src/prototype/` and `src/styles/prototype.css`; delete both (and the `<ProtoBar>` in `App.tsx`) for production sites.
 
@@ -121,7 +129,7 @@ These live in `src/prototype/` and `src/styles/prototype.css`; delete both (and 
 
 ```
 src/
-  data/        types.ts (contracts) · brands/ · sites.ts (presets + X/Y) · copy.ts (neutral inner-page copy) · media.ts (badges, PowerGrid assets)
+  data/        types.ts (contracts) · brands/ · websites.ts (DESIGNS A/B/C + WEBSITES 1/2/3) · copy.ts (neutral inner-page copy) · media.ts (badges, PowerGrid assets)
   system/      theme.ts (brand → tokens) · router.tsx (tiny history router) · site.tsx (context)
   sections/    Hero · WhoWeAre · PowerGrid · Services · Feature · Footer · Inner (page hero, editorial, media, badges, capabilities, other services, CTA, contact)
   pages/       Pages.tsx — page order + content mapping; variants come from the layout

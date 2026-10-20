@@ -1,12 +1,11 @@
 import { createContext, useContext } from 'react';
-import type { Brand, Site, SiteLayout, ViewMode } from '../data/types';
+import type { Brand, SiteLayout, View } from '../data/types';
 
 export type SiteState = {
-  site: Site;
   brand: Brand;
   layout: SiteLayout;
-  /** 'A' | 'B' | 'C' = reviewing a design preset; 'mixed' = the site's own composition */
-  mode: ViewMode;
+  /** A pure design (A/B/C) or one of the mixed demonstration websites (1/2/3) */
+  view: View;
   /** Prototype only: overlay section/variant tags on the page */
   showLabels: boolean;
 };

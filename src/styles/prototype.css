@@ -1,13 +1,30 @@
 /* ==================================================================
-   Staging-only presentation toolbar — a thin black ribbon fixed to
-   the bottom of the viewport. Deliberately neutral so it never reads
-   as part of a company site.
+   Staging-only presentation toolbar — a thin black ribbon that stays
+   hidden until summoned from the bottom edge. Deliberately neutral so
+   it never reads as part of a company site. The website itself runs
+   all the way to the bottom of the viewport.
    ================================================================== */
 :root { --protobar-h: 36px; }
 
-/* Reserve the ribbon's height so footer content is never hidden behind it. */
-body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
-.mnav__body { padding-bottom: calc(40px + var(--protobar-h)); }
+/* Invisible pointer trigger along the bottom edge — tall enough to find without aiming. */
+.protodock__zone { position: fixed; left: 0; right: 0; bottom: 0; z-index: 298; height: 14px; }
+
+/* Touch trigger — a small handle tab, only on devices without hover. */
+.protodock__handle {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 299;
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 20px;
+  margin-left: -22px;
+  background: rgba(10, 11, 12, 0.72);
+  color: rgba(255, 255, 255, 0.85);
+  transition: opacity 0.2s;
+}
+.protodock.is-shown .protodock__handle { opacity: 0; pointer-events: none; }
 
 .protobar {
   position: fixed;
@@ -26,12 +43,17 @@ body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
   color: #fff;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 12px;
+  transform: translateY(100%);
+  opacity: 0;
+  transition: transform 0.22s var(--ease), opacity 0.18s linear;
 }
+.protodock.is-shown .protobar { transform: none; opacity: 1; }
+
 .protobar__group { position: relative; display: flex; align-items: center; gap: 4px; }
 .protobar__label { margin-right: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
 
-/* A / B / C */
-.protobar__seg, .protobar__icon {
+/* Designs: A / B / C */
+.protobar__seg, .protobar__icon, .protobar__close {
   display: grid;
   place-items: center;
   width: 26px;
@@ -40,12 +62,10 @@ body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
   font-weight: 700;
   color: rgba(255, 255, 255, 0.8);
 }
-.protobar__seg:hover, .protobar__icon:hover { background: rgba(255, 255, 255, 0.12); }
+.protobar__seg:hover, .protobar__icon:hover, .protobar__close:hover { background: rgba(255, 255, 255, 0.12); }
 .protobar__seg[aria-pressed='true'] { background: #fff; color: #0a0b0c; }
-.protobar__icon { margin-left: 6px; border-left: 1px solid rgba(255, 255, 255, 0.16); width: 32px; }
-.protobar__icon.is-on { color: #ffc233; }
 
-/* X / Y / Z — brand-colour squares */
+/* Websites: 1 / 2 / 3 — brand-colour squares */
 .protobar__site {
   display: grid;
   place-items: center;
@@ -58,17 +78,24 @@ body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
   transition: opacity 0.2s, box-shadow 0.2s;
 }
 .protobar__site + .protobar__site { margin-left: 4px; }
-.protobar__site:hover, .protobar__site.is-brand { opacity: 0.9; }
+.protobar__site:hover { opacity: 0.9; }
 .protobar__site[aria-pressed='true'] { opacity: 1; box-shadow: 0 0 0 2px #0a0b0c, 0 0 0 3px #fff; }
 
-/* Context note, shown above the ribbon on hover / keyboard focus */
+/* Layers — only rendered while a website is active */
+.protobar__icon { width: 32px; margin-left: 8px; border-left: 1px solid rgba(255, 255, 255, 0.16); }
+.protobar__icon.is-on { color: #ffc233; }
+
+/* Close — touch only */
+.protobar__close { display: none; margin-left: 4px; }
+
+/* Context note, above the ribbon on hover / keyboard focus */
 .protobar__note {
   display: none;
   position: absolute;
   left: -12px;
   bottom: calc(100% + 7px);
   width: max-content;
-  max-width: min(340px, calc(100vw - 24px));
+  max-width: min(360px, calc(100vw - 24px));
   padding: 7px 12px;
   background: #0a0b0c;
   color: rgba(255, 255, 255, 0.82);
@@ -77,8 +104,19 @@ body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
 }
 .protobar__design:hover .protobar__note, .protobar__design:has(:focus-visible) .protobar__note { display: block; }
 
+/* Slot labels (Layers) — prototype debug tags, never mistaken for site content */
+.slot__tag i { font-style: normal; opacity: 0.55; }
+
+@media (hover: none) {
+  .protodock__zone { display: none; }
+  .protodock__handle { display: grid; }
+  .protobar__close { display: grid; }
+  .protobar__design:hover .protobar__note { display: none; }
+}
 @media (max-width: 640px) {
   .protobar { padding: 0 8px; }
   .protobar__label { display: none; }
-  .protobar__design:hover .protobar__note { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .protobar { transition: opacity 0.01ms; }
 }
