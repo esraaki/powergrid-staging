@@ -1192,3 +1192,98 @@ html[data-design="b"] .page-contact .contact-details strong{margin:0!important;l
   html[data-design="b"] .page-safety .safety-support-copy{padding:48px 32px!important}
   html[data-design="b"] .page-safety .safety-photo-final{width:calc(100% - 48px)!important;height:360px!important}
 }
+
+/* === V45: Variation B internal-page alignment + spacing refinements === */
+/* All internal B hero titles: vertically center within the brand-color panel. */
+html[data-design="b"] .inner-hero h1{
+  top:0!important;
+  bottom:auto!important;
+  height:100%!important;
+  width:42%!important;
+  padding:0 clamp(42px,5vw,78px)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+html[data-design="b"] .service-hero-copy{
+  grid-column:1!important;
+  grid-row:1!important;
+  height:100%!important;
+  padding:0 clamp(42px,5vw,78px)!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+}
+
+/* About: approach label/title starts at top-left; copy remains on the right. */
+html[data-design="b"] .page-about .editorial-page>.content-columns>div:first-child{
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+
+/* Careers: Why Join Us label/title starts at top-left. */
+html[data-design="b"] .page-careers .editorial-page>.content-columns>div:first-child{
+  justify-content:flex-start!important;
+  align-items:flex-start!important;
+  text-align:left!important;
+}
+
+/* About CTA: remove ghost text and tighten the section vertically. */
+html[data-design="b"] .page-about .about-careers-link{
+  padding:54px clamp(42px,7vw,100px)!important;
+}
+html[data-design="b"] .page-about .about-careers-link:before{display:none!important;content:none!important}
+html[data-design="b"] .page-about .about-careers-link h3{margin:12px 0 18px!important}
+html[data-design="b"] .page-about .about-careers-link p{margin:0 auto 18px!important}
+html[data-design="b"] .page-about .about-careers-link .about-careers-button{margin-top:10px!important}
+
+/* Service/Safety B CTA: centered eyebrow, no short line, less vertical height. */
+html[data-design="b"] .service-cta{
+  min-height:0!important;
+  padding:58px clamp(40px,8vw,120px)!important;
+}
+html[data-design="b"] .service-cta .eyebrow{
+  justify-content:center!important;
+  text-align:center!important;
+  margin-left:auto!important;
+  margin-right:auto!important;
+}
+html[data-design="b"] .service-cta .eyebrow i{display:none!important}
+html[data-design="b"] .service-cta>div:first-child h2{margin:12px 0 22px!important}
+html[data-design="b"] .service-cta>div:last-child p{margin-bottom:22px!important}
+
+/* Safety: Consistent Approach eyebrow without the short accent line. */
+html[data-design="b"] .page-safety .safety-closing-copy .eyebrow i{display:none!important}
+
+/* Safety Information: larger certification logos, still static/normal scrolling. */
+html[data-design="b"] .page-safety .safety-badge{min-height:170px!important}
+html[data-design="b"] .page-safety .safety-badge img{
+  max-width:225px!important;
+  width:min(100%,225px)!important;
+  height:132px!important;
+}
+
+/* Contact cards: tighter icon -> label -> value rhythm. */
+html[data-design="b"] .page-contact .contact-details>div{
+  padding-top:23px!important;
+  padding-bottom:24px!important;
+}
+html[data-design="b"] .page-contact .contact-card-icon{margin-bottom:5px!important}
+html[data-design="b"] .page-contact .contact-details small{margin-bottom:2px!important}
+html[data-design="b"] .page-contact .contact-details strong{margin:0!important}
+
+@media(max-width:900px){
+  html[data-design="b"] .inner-hero h1{
+    width:100%!important;
+    height:44%!important;
+    padding:0 24px!important;
+  }
+  html[data-design="b"] .service-hero-copy{
+    height:100%!important;
+    padding:0 24px!important;
+  }
+  html[data-design="b"] .page-about .about-careers-link{padding:46px 28px!important}
+  html[data-design="b"] .service-cta{padding:50px 28px!important}
+  html[data-design="b"] .page-safety .safety-badge img{max-width:165px!important;width:min(100%,165px)!important;height:100px!important}
+}
