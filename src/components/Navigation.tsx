@@ -1,60 +1,198 @@
-import {useEffect,useState} from 'react';
-import {SocialIcons} from './SocialIcons';
-import type {BrandKey} from './BrandSwitcher';
-import {brandServices} from '../data/company';
+import { useEffect, useRef, useState, useId } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { ChevronDown, Menu, X, ArrowRight } from 'lucide-react';
+import { Link, useRouter } from '../system/router';
+import { useSite } from '../system/site';
+import { BrandLogo, SocialLinks, EASE } from './ui';
 
-const logos={
-  ampp:{light:'/assets/ampp-logo-light.svg',dark:'/assets/ampp-logo-dark.svg',name:'AMPP Construction'},
-  csr:{light:'/assets/csr-logo-inverse.svg',dark:'/assets/csr-logo.svg',name:'Collective Strategic Resources'},
-  james:{light:'/assets/james-logo-white.png',dark:'/assets/james-logo.svg',name:'James Powerline Construction'},
-  x:{light:'/assets/northline-logo-white.svg',dark:'/assets/northline-logo.svg',name:'Northline Infrastructure'},
-  y:{light:'/assets/summit-logo-white.svg',dark:'/assets/summit-logo.svg',name:'Summit Gridworks'}
-};
+export type NavTone = 'overlay' | 'solid';
 
-export function Navigation({brand}:{brand:BrandKey}){
-  const [solid,setSolid]=useState(false);
-  const [mobileOpen,setMobileOpen]=useState(false);
-  const [mobileSection,setMobileSection]=useState<'about'|'services'|null>(null);
+type MenuItem = { label: string; href: string };
 
-  useEffect(()=>{
-    const f=()=>setSolid(window.scrollY>Math.max(80,window.innerHeight*.68));
-    f(); addEventListener('scroll',f,{passive:true});
-    return()=>removeEventListener('scroll',f);
-  },[]);
+function Dropdown({ label, items, active }: { label: string; items: MenuItem[]; active: boolean }) {
+  const [open, setOpen] = useState(false);
+  const id = useId();
+  const btn = useRef<HTMLButtonElement>(null);
+  const timer = useRef<number>();
+  const { path } = useRouter();
 
-  useEffect(()=>{
-    const onKey=(e:KeyboardEvent)=>{if(e.key==='Escape')setMobileOpen(false)};
-    addEventListener('keydown',onKey);
-    document.body.style.overflow=mobileOpen?'hidden':'';
-    return()=>{removeEventListener('keydown',onKey);document.body.style.overflow=''};
-  },[mobileOpen]);
+  useEffect(() => setOpen(false), [path]);
 
-  const l=logos[brand], services=brandServices[brand];
-  const isService=window.location.pathname.startsWith('/services/');
-  const close=()=>{setMobileOpen(false);setMobileSection(null)};
+  const show = () => { window.clearTimeout(timer.current); setOpen(true); };
+  const hide = () => { window.clearTimeout(timer.current); timer.current = window.setTimeout(() => setOpen(false), 140); };
 
-  return <header className={`site-nav ${solid||isService?'solid':''} ${mobileOpen?'mobile-open':''}`}>
-    <a href="/#top" className={`real-logo nav-logo brand-${brand}`} aria-label={`${l.name} home`} onClick={close}>
-      <img className="logo-light" src={l.light} alt={l.name}/><img className="logo-dark" src={l.dark} alt="" aria-hidden="true"/>
-    </a>
-    <nav aria-label="Primary">
-      <div className="nav-dropdown"><a className="nav-services-link" href="/about">About <span>⌄</span></a><div className="services-dropdown about-dropdown"><a href="/about">About Us</a><a href="/careers">Join Our Team</a></div></div>
-      <div className="nav-dropdown"><button className="nav-services-link" type="button">Services <span>⌄</span></button><div className="services-dropdown">{services.map(s=><a key={s.id} href={`/services/${s.id}`}>{s.name}</a>)}</div></div>
-      <a href="/safety">Safety</a><a href="/contact">Contact</a>
-    </nav>
-    <div className="nav-actions"><SocialIcons/></div>
-    <button className="mobile-menu-toggle" type="button" aria-label={mobileOpen?'Close menu':'Open menu'} aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={()=>setMobileOpen(v=>!v)}>
-      <span/><span/><span/>
-    </button>
-    <div className="mobile-nav-panel" id="mobile-navigation" aria-hidden={!mobileOpen}>
-      <div className="mobile-nav-links">
-        <button type="button" className="mobile-nav-parent" aria-expanded={mobileSection==='about'} onClick={()=>setMobileSection(v=>v==='about'?null:'about')}>About <span>⌄</span></button>
-        {mobileSection==='about'&&<div className="mobile-subnav"><a href="/about" onClick={close}>About Us</a><a href="/careers" onClick={close}>Join Our Team</a></div>}
-        <button type="button" className="mobile-nav-parent" aria-expanded={mobileSection==='services'} onClick={()=>setMobileSection(v=>v==='services'?null:'services')}>Services <span>⌄</span></button>
-        {mobileSection==='services'&&<div className="mobile-subnav">{services.map(s=><a key={s.id} href={`/services/${s.id}`} onClick={close}>{s.name}</a>)}</div>}
-        <a href="/safety" onClick={close}>Safety</a><a href="/contact" onClick={close}>Contact</a>
+  return (
+    <li
+      className={`nav__item nav__item--menu${open ? ' is-open' : ''}`}
+      onMouseEnter={show}
+      onMouseLeave={hide}
+      onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) setOpen(false); }}
+      onKeyDown={e => { if (e.key === 'Escape' && open) { setOpen(false); btn.current?.focus(); } }}
+    >
+      <button
+        ref={btn}
+        type="button"
+        className={`nav__link${active ? ' is-current' : ''}`}
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen(v => !v)}
+      >
+        {label}
+        <ChevronDown className="nav__chev" size={16} strokeWidth={2.25} aria-hidden="true" />
+      </button>
+      <div className="nav__menu" id={id}>
+        <ul>
+          {items.map(i => (
+            <li key={i.href}>
+              <Link href={i.href} aria-current={path === i.href ? 'page' : undefined} onClick={() => setOpen(false)}>
+                <span>{i.label}</span>
+                <ArrowRight size={16} aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-      <div className="mobile-nav-social"><SocialIcons/></div>
-    </div>
-  </header>;
+    </li>
+  );
+}
+
+export function Navigation({ tone }: { tone: NavTone }) {
+  const { brand } = useSite();
+  const { path } = useRouter();
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [section, setSection] = useState<'about' | 'services' | null>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  useEffect(() => { setMobileOpen(false); setSection(null); }, [path, brand.key]);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setMobileOpen(false); };
+    const onResize = () => { if (window.innerWidth > 1080) setMobileOpen(false); };
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('resize', onResize);
+    return () => {
+      document.body.style.overflow = prev;
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('resize', onResize);
+      toggleRef.current?.focus();
+    };
+  }, [mobileOpen]);
+
+  const about: MenuItem[] = [{ label: 'About Us', href: '/about' }, { label: 'Join Our Team', href: '/careers' }];
+  const services: MenuItem[] = brand.services.map(s => ({ label: s.name, href: `/services/${s.slug}` }));
+  const solid = tone === 'solid' || scrolled;
+
+  return (
+    <header className={`nav ${solid ? 'nav--solid' : 'nav--overlay'}`}>
+      <a className="skip-link" href="#main">Skip to content</a>
+      <div className="nav__bar">
+        <Link href="/" className="nav__logo" aria-label={`${brand.name} — home`}>
+          <BrandLogo tone={solid ? 'light' : 'dark'} />
+        </Link>
+
+        <nav className="nav__primary" aria-label="Primary">
+          <ul>
+            <Dropdown label="About" items={about} active={path === '/about' || path === '/careers'} />
+            <Dropdown label="Services" items={services} active={path.startsWith('/services/')} />
+            <li className="nav__item">
+              <Link className={`nav__link${path === '/safety' ? ' is-current' : ''}`} href="/safety" aria-current={path === '/safety' ? 'page' : undefined}>Safety</Link>
+            </li>
+            <li className="nav__item">
+              <Link className={`nav__link${path === '/contact' ? ' is-current' : ''}`} href="/contact" aria-current={path === '/contact' ? 'page' : undefined}>Contact</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <SocialLinks className="nav__social" />
+
+        <button
+          ref={toggleRef}
+          type="button"
+          className="nav__toggle"
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-menu"
+          onClick={() => setMobileOpen(true)}
+        >
+          <Menu size={24} aria-hidden="true" />
+          <span className="sr-only">Open menu</span>
+        </button>
+      </div>
+
+      <AnimatePresence>
+        {mobileOpen && (
+          <motion.div
+            id="mobile-menu"
+            className="mnav"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25, ease: EASE }}
+          >
+            <div className="mnav__head">
+              <Link href="/" className="nav__logo" aria-label={`${brand.name} — home`}>
+                <BrandLogo tone="dark" />
+              </Link>
+              <button ref={closeRef} type="button" className="nav__toggle mnav__close" onClick={() => setMobileOpen(false)}>
+                <X size={26} aria-hidden="true" />
+                <span className="sr-only">Close menu</span>
+              </button>
+            </div>
+            <motion.nav
+              className="mnav__body"
+              aria-label="Mobile"
+              onClick={e => { if ((e.target as HTMLElement).closest('a')) setMobileOpen(false); }}
+              initial={{ y: 16, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 0.4, ease: EASE, delay: 0.05 }}
+            >
+              <ul className="mnav__list">
+                {([['about', 'About', about], ['services', 'Services', services]] as const).map(([key, label, items]) => (
+                  <li key={key}>
+                    <button
+                      type="button"
+                      className="mnav__parent"
+                      aria-expanded={section === key}
+                      aria-controls={`mnav-${key}`}
+                      onClick={() => setSection(s => (s === key ? null : key))}
+                    >
+                      {label}
+                      <ChevronDown size={22} aria-hidden="true" className="mnav__chev" />
+                    </button>
+                    <ul id={`mnav-${key}`} className="mnav__sub" hidden={section !== key}>
+                      {items.map(i => (
+                        <li key={i.href}>
+                          <Link href={i.href} aria-current={path === i.href ? 'page' : undefined}>{i.label}</Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+                <li><Link className="mnav__link" href="/safety">Safety</Link></li>
+                <li><Link className="mnav__link" href="/contact">Contact</Link></li>
+              </ul>
+              <div className="mnav__foot">
+                <SocialLinks />
+              </div>
+            </motion.nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </header>
+  );
 }

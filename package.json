@@ -1,12 +1,13 @@
 {
-  "name": "powergrid-staging",
-  "version": "1.0.0",
+  "name": "powergrid-design-system",
+  "version": "2.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "tsc -p tsconfig.app.json && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc -p tsconfig.app.json"
   },
   "dependencies": {
     "lucide-react": "0.468.0",
