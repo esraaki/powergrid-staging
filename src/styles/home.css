@@ -84,47 +84,66 @@
 }
 .hero-b__foot p { max-width: 42ch; margin-bottom: 32px; font-size: var(--fs-lead); line-height: 1.55; color: rgba(255, 255, 255, 0.92); }
 .hero-b__media { position: relative; overflow: hidden; background: var(--charcoal); }
-.hero-b__img { position: absolute; inset: 0; }
-.hero-b__inset {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: clamp(160px, 24%, 300px);
-  aspect-ratio: 4 / 3;
-  border-top: 10px solid var(--paper);
-  border-right: 10px solid var(--paper);
-}
-.hero-b__inset img { width: 100%; height: 100%; object-fit: cover; }
+.hero-b__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) {
   .hero-b { grid-template-columns: 1fr; min-height: 0; }
   .hero-b__panel { padding: 40px var(--gutter) 48px; gap: 36px; }
   .hero-b__media { aspect-ratio: 4 / 3; }
-  .hero-b__inset { display: none; }
 }
 
 /* ------------------------------------------------------------------
-   HERO C — monumental type, panoramic image
+   HERO C — monumental type
+   Row 1: headline (9 cols) + summary aligned to its last line (3 cols).
+   Row 2: one wide photograph across the full frame.
+   Row 3: ruled service index — the same language as Services C.
    ------------------------------------------------------------------ */
-.hero-c { background: var(--off); padding: calc(clamp(32px, 5vw, 80px)) 0 clamp(64px, 8vw, 128px); overflow: hidden; }
-.hero-c__meta { margin-bottom: clamp(20px, 3vw, 40px); }
-.hero-c__title { margin-bottom: clamp(36px, 5vw, 72px); color: var(--ink); }
-.hero-c__line { display: block; }
-.hero-c__line--1 { padding-left: 25%; }
-.hero-c__line--2 { padding-left: 8.333%; color: var(--accent-light); }
-.hero-c__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: end; }
-.hero-c__copy { grid-column: 1 / span 3; }
-.hero-c__copy p { margin-bottom: 28px; font-size: var(--fs-lead); line-height: 1.55; color: var(--ink-2); }
-.hero-c__media { position: relative; grid-column: 4 / -1; aspect-ratio: 21 / 9; overflow: hidden; background: var(--charcoal); }
-.hero-c__media img { width: 100%; height: 100%; object-fit: cover; }
-.hero-c__mark { position: absolute; left: 0; top: 0; width: 16.666%; height: 10px; background: var(--accent); }
+.hero-c { padding: clamp(36px, 4.5vw, 72px) 0 clamp(64px, 7vw, 112px); background: var(--off); }
+.hero-c__top {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: var(--col-gap);
+  align-items: end;
+  margin-bottom: clamp(28px, 3.2vw, 48px);
+}
+.hero-c__head { grid-column: 1 / span 9; }
+.hero-c__head .eyebrow { margin-bottom: clamp(20px, 2.4vw, 36px); }
+.hero-c__title { font-size: calc(clamp(52px, 9.4vw, 164px) * var(--heading-scale)); color: var(--ink); }
+.hero-c__aside { grid-column: 10 / span 3; padding-bottom: 0.4em; }
+.hero-c__aside p { margin-bottom: 24px; font-size: var(--fs-lead); line-height: 1.55; color: var(--ink-2); }
+.hero-c__stage { position: relative; aspect-ratio: 21 / 8; overflow: hidden; background: var(--charcoal); }
+.hero-c__stage::after { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 6px; background: var(--accent); }
+.hero-c__stage img { width: 100%; height: 100%; object-fit: cover; }
+.hero-c__index { display: grid; grid-template-columns: repeat(var(--n, 4), minmax(0, 1fr)); gap: var(--col-gap); margin-top: 0; }
+.hero-c__index a {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 12px;
+  height: 100%;
+  padding: 18px 0 4px;
+  border-top: 1px solid var(--line-strong);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+  transition: border-color 0.3s, color 0.3s;
+}
+.hero-c__num { padding-top: 2px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; color: var(--accent-light); font-variant-numeric: tabular-nums; }
+.hero-c__index svg { color: var(--accent-light); opacity: 0; transform: translateX(-4px); transition: opacity 0.3s, transform 0.3s var(--ease); }
+.hero-c__index a:hover { border-top-color: var(--accent); color: var(--accent-light); }
+.hero-c__index a:hover svg { opacity: 1; transform: none; }
+.hero-c__index { margin-top: clamp(16px, 1.6vw, 24px); }
 @media (max-width: 1100px) {
-  .hero-c__copy { grid-column: 1 / span 4; }
-  .hero-c__media { grid-column: 5 / -1; aspect-ratio: 16 / 10; }
+  .hero-c__head { grid-column: 1 / -1; }
+  .hero-c__aside { grid-column: 1 / span 7; padding-bottom: 0; }
+  .hero-c__stage { aspect-ratio: 16 / 8; }
+  .hero-c__index { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .hero-c__line--1, .hero-c__line--2 { padding-left: 0; }
-  .hero-c__copy, .hero-c__media { grid-column: 1 / -1; }
-  .hero-c__media { order: -1; aspect-ratio: 4 / 3; margin-bottom: 12px; }
+  .hero-c__aside { grid-column: 1 / -1; }
+  .hero-c__stage { aspect-ratio: 4 / 3; }
+  .hero-c__index { grid-template-columns: 1fr; gap: 0; }
+  .hero-c__index a { padding: 16px 0; }
+  .hero-c__index svg { opacity: 1; transform: none; }
 }
 
 /* ------------------------------------------------------------------
@@ -168,31 +187,27 @@
 }
 
 /* ------------------------------------------------------------------
-   WHO WE ARE C — statement paragraph, staggered image pair
+   WHO WE ARE C — monumental heading, balanced image / statement pair
    ------------------------------------------------------------------ */
 .who-c { padding: var(--section) 0; background: var(--off); }
-.who-c__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--col-gap); row-gap: clamp(40px, 5vw, 72px); }
-.who-c__label { grid-column: 1 / span 3; }
-.who-c__heading { font-size: 19px; font-weight: 600; line-height: 1.4; color: var(--ink); max-width: 22ch; }
-.who-c__statement { grid-column: 4 / -1; }
+.who-c__head { padding-top: clamp(24px, 2.6vw, 36px); border-top: 1px solid var(--line-strong); margin-bottom: clamp(40px, 5vw, 80px); }
+.who-c__head .display { max-width: 18ch; }
+.who-c__pair { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: end; }
+.who-c__img { grid-column: 1 / span 6; aspect-ratio: 4 / 3; overflow: hidden; background: var(--charcoal); }
+.who-c__img img { width: 100%; height: 100%; object-fit: cover; }
+.who-c__statement { grid-column: 8 / span 5; }
 .who-c__statement p {
-  max-width: 30ch;
-  margin-bottom: 40px;
-  font-size: clamp(26px, 3.1vw, 48px);
+  margin-bottom: 36px;
+  font-size: clamp(22px, 2.15vw, 33px);
   font-weight: 500;
-  line-height: 1.2;
-  letter-spacing: -0.022em;
+  line-height: 1.28;
+  letter-spacing: -0.018em;
   color: var(--ink);
   text-wrap: pretty;
 }
-.who-c__img { overflow: hidden; }
-.who-c__img img { width: 100%; height: 100%; object-fit: cover; }
-.who-c__img--1 { grid-column: 4 / span 5; aspect-ratio: 4 / 3; }
-.who-c__img--2 { grid-column: 10 / span 3; aspect-ratio: 3 / 4; margin-top: clamp(48px, 9vw, 160px); }
 @media (max-width: 900px) {
-  .who-c__label, .who-c__statement { grid-column: 1 / -1; }
-  .who-c__img--1 { grid-column: 1 / span 7; }
-  .who-c__img--2 { grid-column: 8 / -1; }
+  .who-c__img, .who-c__statement { grid-column: 1 / -1; }
+  .who-c__statement { margin-top: 12px; }
 }
 
 /* ------------------------------------------------------------------
@@ -438,7 +453,6 @@
    ------------------------------------------------------------------ */
 .feat-b { padding: var(--section) 0; background: var(--paper); }
 .feat-b__media { aspect-ratio: 21 / 9; overflow: hidden; background: var(--charcoal); }
-.feat-b__wipe { height: 100%; }
 .feat-b__media img { width: 100%; height: 100%; object-fit: cover; }
 .feat-b__caption { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: end; margin-top: clamp(32px, 3.5vw, 56px); }
 .feat-b__margin { grid-column: 1 / span 3; align-self: start; }
@@ -456,21 +470,25 @@
 }
 
 /* ------------------------------------------------------------------
-   FEATURE C — colour field, image sequence
+   FEATURE C — colour field, centred image trio
+   Larger centre frame flanked by two equal frames, all centred on one
+   axis — balanced, not stepped.
    ------------------------------------------------------------------ */
 .feat-c { padding: var(--section) 0; background: var(--accent-field); color: #fff; overflow: hidden; }
-.feat-c__head { margin-bottom: clamp(44px, 6vw, 96px); }
-.feat-c__row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: start; }
-.feat-c__body { grid-column: 1 / span 3; }
-.feat-c__body p { color: rgba(255, 255, 255, 0.94); }
-.feat-c__strip { grid-column: 5 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.feat-c__img { aspect-ratio: 3 / 4; overflow: hidden; background: rgba(0, 0, 0, 0.2); }
+.feat-c__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--col-gap); align-items: end; margin-bottom: clamp(44px, 5.5vw, 88px); }
+.feat-c__head > div { grid-column: 1 / span 8; }
+.feat-c__body { grid-column: 9 / span 4; color: rgba(255, 255, 255, 0.94); }
+.feat-c__trio { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: clamp(10px, 1.4vw, 20px); align-items: center; }
+.feat-c__img { overflow: hidden; background: rgba(0, 0, 0, 0.2); }
 .feat-c__img img { width: 100%; height: 100%; object-fit: cover; }
-.feat-c__img--1 { margin-top: clamp(32px, 5vw, 80px); }
-.feat-c__img--2 { margin-top: clamp(64px, 10vw, 160px); }
+.feat-c__img--0, .feat-c__img--2 { aspect-ratio: 4 / 5; }
+.feat-c__img--1 { aspect-ratio: 5 / 6; }
 @media (max-width: 900px) {
-  .feat-c__body, .feat-c__strip { grid-column: 1 / -1; }
-  .feat-c__strip { margin-top: 24px; }
-  .feat-c__img--1 { margin-top: 24px; }
-  .feat-c__img--2 { margin-top: 48px; }
+  .feat-c__head > div, .feat-c__body { grid-column: 1 / -1; }
+  .feat-c__body { margin-top: 8px; }
+}
+@media (max-width: 560px) {
+  .feat-c__trio { grid-template-columns: 1fr 1fr; align-items: stretch; }
+  .feat-c__img--1 { grid-column: 1 / -1; grid-row: 1; aspect-ratio: 4 / 3; }
+  .feat-c__img--0, .feat-c__img--2 { aspect-ratio: 1 / 1; }
 }

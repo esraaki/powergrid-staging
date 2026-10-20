@@ -9,9 +9,9 @@
   font-size: 12px;
   color: #fff;
 }
-.proto--design { left: 16px; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; }
+.proto--design { left: 16px; display: flex; flex-direction: column-reverse; gap: 6px; align-items: flex-start; }
 .proto--site { right: 16px; }
-.proto__row, .proto__trigger {
+.proto__row {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -20,52 +20,40 @@
   background: rgba(13, 15, 16, 0.92);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
-.proto__label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.62); }
-.proto__seg { display: flex; }
+.proto__label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.62); white-space: nowrap; }
+.proto__seg, .proto__sites { display: flex; }
 .proto__seg button, .proto__icon { display: grid; place-items: center; width: 32px; height: 32px; font-weight: 700; color: rgba(255, 255, 255, 0.85); }
 .proto__seg button[aria-pressed='true'] { background: #fff; color: #0d0f10; }
-.proto__seg button:disabled { opacity: 0.3; cursor: not-allowed; }
-.proto__seg button:not(:disabled):not([aria-pressed='true']):hover, .proto__icon:hover { background: rgba(255, 255, 255, 0.12); }
+.proto__seg button:not([aria-pressed='true']):hover, .proto__icon:hover { background: rgba(255, 255, 255, 0.12); }
 .proto__icon { border-left: 1px solid rgba(255, 255, 255, 0.16); margin-left: 2px; }
 .proto__icon.is-on { color: #ffc233; }
-.proto__note { display: none; max-width: 260px; padding: 8px 12px; background: rgba(13, 15, 16, 0.92); color: rgba(255, 255, 255, 0.82); font-size: 11.5px; line-height: 1.4; }
+.proto__note { display: none; max-width: 280px; padding: 8px 12px; background: rgba(13, 15, 16, 0.92); color: rgba(255, 255, 255, 0.82); font-size: 11.5px; line-height: 1.4; }
+.proto--design:hover .proto__note, .proto--design:has(:focus-visible) .proto__note { display: block; }
 
-.proto__trigger { padding: 0 12px; }
-.proto__current { font-weight: 700; font-size: 13px; }
-.proto__chev { transition: transform 0.25s; }
-.proto--site.is-open .proto__chev { transform: rotate(180deg); }
-.proto__panel {
-  position: absolute;
-  right: 0;
-  bottom: calc(100% + 8px);
-  width: min(320px, calc(100vw - 32px));
-  max-height: calc(100dvh - 100px);
-  overflow-y: auto;
-  padding: 16px;
-  background: #fff;
-  color: #111517;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+/* Mixed sites: letter + company, with the company's colour as a marker */
+.proto__sites button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 32px;
+  padding: 0 10px;
+  color: rgba(255, 255, 255, 0.85);
 }
-.proto__heading { margin: 0 0 10px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: #5a6266; }
-.proto__companies, .proto__demos { display: grid; gap: 4px; }
-.proto__companies { margin-bottom: 18px; padding-bottom: 16px; border-bottom: 1px solid rgba(17, 21, 23, 0.14); }
-.proto__panel button { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 48px; padding: 8px 10px; text-align: left; border: 1px solid transparent; }
-.proto__panel button:hover { background: #f3f1ec; }
-.proto__panel button[aria-pressed='true'] { border-color: #111517; }
-.proto__companies img { width: 76px; height: 28px; object-fit: contain; object-position: left center; flex: none; }
-.proto__companies span { font-size: 12.5px; line-height: 1.3; }
-.proto__demos i { flex: none; width: 14px; height: 28px; }
-.proto__demos span { display: flex; flex-direction: column; font-size: 12px; line-height: 1.3; color: #5a6266; }
-.proto__demos b { font-size: 13px; color: #111517; }
-
-.proto--design:hover .proto__note, .proto--design:focus-within .proto__note { display: block; }
+.proto__sites button::before { content: ''; width: 8px; height: 8px; background: var(--site-accent); flex: none; }
+.proto__sites b { font-weight: 800; }
+.proto__sites span { font-weight: 500; }
+.proto__sites button:hover { background: rgba(255, 255, 255, 0.12); }
+.proto__sites button[aria-pressed='true'] { background: #fff; color: #0d0f10; }
+.proto__sites button.is-brand { box-shadow: inset 0 -2px 0 var(--site-accent); }
 
 @media (max-width: 640px) {
   .proto { bottom: 10px; }
   .proto--design { left: 10px; }
   .proto--site { right: 10px; }
-  .proto__row, .proto__trigger { height: 40px; }
-  .proto--design .proto__label { display: none; }
-  .proto__row { padding-left: 4px; }
+  .proto__row { height: 40px; padding-left: 4px; }
+  .proto__label { display: none; }
+  .proto__sites span { display: none; }
+  .proto__sites button { padding: 0 9px; }
   .proto--design:hover .proto__note { display: none; }
 }

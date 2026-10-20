@@ -1,7 +1,9 @@
 import { useEffect, useState, type FC } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
+import { ArrowRight } from 'lucide-react';
 import type { HeroData, Variant } from '../data/types';
 import { Button, Display, Eyebrow, Img, TextLink, EASE } from '../components/ui';
+import { Link } from '../system/router';
 import type { NavTone } from '../components/Navigation';
 
 function useCycle(length: number, ms = 7000) {
@@ -15,10 +17,16 @@ function useCycle(length: number, ms = 7000) {
   return i;
 }
 
-const rise = (delay: number) => ({
-  initial: { opacity: 0, y: 28 },
+/* Restrained entrance: short travel, one soft fade. */
+const rise = (delay = 0) => ({
+  initial: { opacity: 0, y: 12 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 1.1, ease: EASE, delay },
+  transition: { duration: 0.8, ease: EASE, delay },
+});
+const fade = (delay = 0) => ({
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  transition: { duration: 0.9, ease: EASE, delay },
 });
 
 /* A — Cinematic. Full-bleed field photography, crossfading; type anchored low-left. */
@@ -31,10 +39,10 @@ const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
           <motion.div
             key={images[i]}
             className="hero-a__frame"
-            initial={{ opacity: 0, scale: 1.04 }}
+            initial={{ opacity: 0, scale: 1.015 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ opacity: { duration: 1.6, ease: EASE }, scale: { duration: 8, ease: 'linear' } }}
+            transition={{ opacity: { duration: 1.4, ease: EASE }, scale: { duration: 8, ease: 'linear' } }}
           >
             <Img src={images[i]} eager />
           </motion.div>
@@ -42,11 +50,11 @@ const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
       </div>
       <div className="hero-a__shade" aria-hidden="true" />
       <div className="container hero-a__content">
-        <motion.div className="hero-a__title" {...rise(0.15)}>
+        <motion.div className="hero-a__title" {...rise(0.1)}>
           <Eyebrow className="on-dark">{eyebrow}</Eyebrow>
           <Display as="h1" id="hero-title" size="xl" lines={title} accentLine={title.length - 1} />
         </motion.div>
-        <motion.div className="hero-a__aside" {...rise(0.45)}>
+        <motion.div className="hero-a__aside" {...fade(0.35)}>
           <p className="lead">{body}</p>
           <Button action={action} tone="accent" />
         </motion.div>
@@ -63,58 +71,56 @@ const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
   );
 };
 
-/* B — Split field. Flat brand-colour panel against a photograph; structured, graphic. */
+/* B — Split field. Flat brand-colour panel against a single photograph. */
 const HeroB: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
   <section className="hero-b" aria-labelledby="hero-title">
-    <div className="hero-b__panel">
-      <motion.div className="hero-b__top" {...rise(0.1)}>
+    <motion.div className="hero-b__panel" {...rise(0.05)}>
+      <div className="hero-b__top">
         <Eyebrow className="on-field" rule={false} index="01">{eyebrow}</Eyebrow>
-      </motion.div>
-      <motion.div {...rise(0.2)}>
-        <Display as="h1" id="hero-title" size="l" lines={title} />
-      </motion.div>
-      <motion.div className="hero-b__foot" {...rise(0.45)}>
+      </div>
+      <Display as="h1" id="hero-title" size="l" lines={title} />
+      <div className="hero-b__foot">
         <p>{body}</p>
         <Button action={action} tone="light" />
-      </motion.div>
-    </div>
-    <div className="hero-b__media">
-      <motion.div className="hero-b__img" initial={{ clipPath: 'inset(0 0 0 100%)' }} animate={{ clipPath: 'inset(0 0 0 0%)' }} transition={{ duration: 1.2, ease: EASE }}>
-        <Img src={images[0]} eager sizes="60vw" />
-      </motion.div>
-      {images[1] && (
-        <div className="hero-b__inset" aria-hidden="true">
-          <Img src={images[1]} eager sizes="20vw" />
-        </div>
-      )}
-    </div>
+      </div>
+    </motion.div>
+    <motion.div className="hero-b__media" {...fade()}>
+      <Img src={images[0]} eager sizes="60vw" />
+    </motion.div>
   </section>
 );
 
-/* C — Monumental type. Headline as architecture; panoramic image beneath. */
-const HeroC: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
+/* C — Monumental type. The headline carries the page; one wide photograph and a
+   ruled service index sit beneath it on the same 12-column frame. */
+const HeroC: FC<HeroData> = ({ eyebrow, title, body, images, action, index }) => (
   <section className="hero-c" aria-labelledby="hero-title">
     <div className="container">
-      <motion.div className="hero-c__meta" {...rise(0.05)}>
-        <Eyebrow>{eyebrow}</Eyebrow>
-      </motion.div>
-      <h1 id="hero-title" className="display display--xxl hero-c__title">
-        {title.map((l, n) => (
-          <motion.span key={n} className={`display__line hero-c__line hero-c__line--${n}`} {...rise(0.1 + n * 0.12)}>
-            {l}{n < title.length - 1 ? ' ' : ''}
-          </motion.span>
-        ))}
-      </h1>
-      <div className="hero-c__grid">
-        <motion.div className="hero-c__copy" {...rise(0.5)}>
+      <div className="hero-c__top">
+        <motion.div className="hero-c__head" {...rise(0.05)}>
+          <Eyebrow>{eyebrow}</Eyebrow>
+          <Display as="h1" id="hero-title" size="xxl" lines={title} accentLine={title.length - 1} className="hero-c__title" />
+        </motion.div>
+        <motion.div className="hero-c__aside" {...fade(0.3)}>
           <p>{body}</p>
           <TextLink action={action} />
         </motion.div>
-        <motion.div className="hero-c__media" initial={{ clipPath: 'inset(100% 0 0 0)' }} animate={{ clipPath: 'inset(0% 0 0 0)' }} transition={{ duration: 1.3, ease: EASE, delay: 0.3 }}>
-          <Img src={images[0]} eager sizes="75vw" />
-          <span className="hero-c__mark" aria-hidden="true" />
-        </motion.div>
       </div>
+      <motion.div className="hero-c__stage" {...fade(0.15)}>
+        <Img src={images[0]} eager sizes="92vw" />
+      </motion.div>
+      {index && index.length > 0 && (
+        <motion.ol className="hero-c__index" style={{ '--n': Math.min(index.length, 6) } as React.CSSProperties} {...fade(0.4)}>
+          {index.slice(0, 6).map((l, n) => (
+            <li key={l.href}>
+              <Link href={l.href}>
+                <span className="hero-c__num" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span>
+                <span className="hero-c__label">{l.label}</span>
+                <ArrowRight size={18} aria-hidden="true" />
+              </Link>
+            </li>
+          ))}
+        </motion.ol>
+      )}
     </div>
   </section>
 );

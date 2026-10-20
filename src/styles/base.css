@@ -176,7 +176,6 @@ h1, h2, h3 { margin: 0; }
 
 /* ---------- Brand logos ---------- */
 .brand-logo { display: block; height: 46px; width: auto; max-width: 220px; object-fit: contain; object-position: left center; }
-.brand-logo--northline, .brand-logo--summit { height: 48px; }
 
 /* ---------- Images ---------- */
 .img-cover, [class*='__img'] > img, [class*='__media'] > img, [class*='__frame'] > img { width: 100%; height: 100%; object-fit: cover; }

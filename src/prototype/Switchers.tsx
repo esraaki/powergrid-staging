@@ -1,27 +1,25 @@
-/* Staging-only presentation controls. Not part of production company sites. */
-import { useEffect, useRef, useState } from 'react';
-import { ChevronUp, Layers } from 'lucide-react';
+/* Staging-only presentation controls. Not part of production company sites.
+   Bottom-left  DESIGN       A / B / C — review each section library as a complete preset.
+   Bottom-right MIXED SITES  X / Y / Z — finished company sites assembled from A + B + C. */
+import { Layers } from 'lucide-react';
 import type { Variant } from '../data/types';
 import { SITES } from '../data/sites';
 import { useSite } from '../system/site';
 
 export function DesignSwitcher({ onDesign, onLabels, isHome }: { onDesign: (v: Variant) => void; onLabels: () => void; isHome: boolean }) {
-  const { design, site, showLabels } = useSite();
-  const locked = !!site.layout;
+  const { mode, brand, showLabels } = useSite();
+  const note = mode === 'mixed'
+    ? 'Choose A, B or C to review a complete design direction in the current brand.'
+    : mode === 'C' && !isHome
+      ? `Design C in the ${brand.shortName} brand. C is a homepage concept — inner pages use the B system.`
+      : `Design ${mode}, previewed in the ${brand.shortName} brand.`;
   return (
-    <div className="proto proto--design" role="group" aria-label="Prototype design controls">
+    <div className="proto proto--design" role="group" aria-label="Design directions (prototype)">
       <div className="proto__row">
-        <span className="proto__label">{locked ? 'Mixed' : 'Design'}</span>
+        <span className="proto__label">Design</span>
         <div className="proto__seg">
           {(['A', 'B', 'C'] as const).map(v => (
-            <button
-              key={v}
-              type="button"
-              aria-pressed={!locked && design === v}
-              disabled={locked}
-              onClick={() => onDesign(v)}
-              title={locked ? `${site.label} uses a fixed mixed composition` : `Design ${v}`}
-            >
+            <button key={v} type="button" aria-pressed={mode === v} onClick={() => onDesign(v)} title={`Design ${v}`}>
               {v}
             </button>
           ))}
@@ -31,63 +29,35 @@ export function DesignSwitcher({ onDesign, onLabels, isHome }: { onDesign: (v: V
           <span className="sr-only">Show section variant labels</span>
         </button>
       </div>
-      {!locked && design === 'C' && !isHome && <p className="proto__note">C is a homepage concept — inner pages use the B system.</p>}
-      {locked && <p className="proto__note">{site.label}: sections mixed from A / B / C.</p>}
+      <p className="proto__note">{note}</p>
     </div>
   );
 }
 
 export function SiteSwitcher({ onSite }: { onSite: (key: string) => void }) {
-  const { site } = useSite();
-  const [open, setOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: MouseEvent) => { if (!ref.current?.contains(e.target as Node)) setOpen(false); };
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false); };
-    document.addEventListener('mousedown', onDown);
-    document.addEventListener('keydown', onKey);
-    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey); };
-  }, [open]);
-
-  const companies = SITES.filter(s => !s.demo);
-  const demos = SITES.filter(s => s.demo);
-  const pick = (k: string) => { onSite(k); setOpen(false); };
-
+  const { site, mode } = useSite();
   return (
-    <div className={`proto proto--site${open ? ' is-open' : ''}`} ref={ref}>
-      {open && (
-        <div className="proto__panel" id="site-panel">
-          <p className="proto__heading">Companies</p>
-          <ul className="proto__companies">
-            {companies.map(s => (
-              <li key={s.key}>
-                <button type="button" aria-pressed={site.key === s.key} onClick={() => pick(s.key)}>
-                  <img src={s.brand.logo.onLight} alt="" />
-                  <span>{s.brand.name}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <p className="proto__heading">Demo sites · mixed sections</p>
-          <ul className="proto__demos">
-            {demos.map(s => (
-              <li key={s.key}>
-                <button type="button" aria-pressed={site.key === s.key} onClick={() => pick(s.key)}>
-                  <i style={{ background: s.brand.accent }} aria-hidden="true" />
-                  <span><b>{s.label}</b>{s.brand.name}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
+    <div className="proto proto--site" role="group" aria-label="Mixed site examples (prototype)">
+      <div className="proto__row">
+        <span className="proto__label">Mixed sites</span>
+        <div className="proto__sites">
+          {SITES.map(s => (
+            <button
+              key={s.key}
+              type="button"
+              aria-pressed={mode === 'mixed' && site.key === s.key}
+              /* In design-preview mode, mark which brand the preset is shown in. */
+              className={mode !== 'mixed' && site.key === s.key ? 'is-brand' : ''}
+              onClick={() => onSite(s.key)}
+              title={`${s.label} — ${s.brand.name}`}
+              style={{ '--site-accent': s.brand.accent } as React.CSSProperties}
+            >
+              <b>{s.key.toUpperCase()}</b>
+              <span>{s.brand.shortName}</span>
+            </button>
+          ))}
         </div>
-      )}
-      <button type="button" className="proto__trigger" aria-expanded={open} aria-controls="site-panel" onClick={() => setOpen(v => !v)}>
-        <span className="proto__label">Site</span>
-        <span className="proto__current">{site.label}</span>
-        <ChevronUp size={16} aria-hidden="true" className="proto__chev" />
-      </button>
+      </div>
     </div>
   );
 }

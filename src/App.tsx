@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import type { Variant } from './data/types';
+import type { ViewMode } from './data/types';
 import { getSite, resolveLayout } from './data/sites';
 import { brandVars, loadBrandFonts } from './system/theme';
 import { parseRoute, useRouter } from './system/router';
@@ -14,28 +14,31 @@ const store = {
   set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
 };
 
-/* ?site=csr&design=b lets a presenter share a specific combination. */
-function initial(key: 'site' | 'design', fallback: string) {
-  const q = new URLSearchParams(window.location.search).get(key);
+/* ?site=x&view=B lets a presenter share a specific combination. */
+function initial(key: 'site' | 'view', fallback: string) {
+  const params = new URLSearchParams(window.location.search);
+  const q = params.get(key) ?? (key === 'view' ? params.get('design') : null);
   return q ?? store.get(`pg-${key}`) ?? fallback;
+}
+
+function parseMode(v: string): ViewMode {
+  const u = v.toUpperCase();
+  return u === 'A' || u === 'B' || u === 'C' ? u : 'mixed';
 }
 
 export default function App() {
   const { path, navigate } = useRouter();
-  const [siteKey, setSiteKey] = useState(() => getSite(initial('site', 'ampp')).key);
-  const [design, setDesign] = useState<Variant>(() => {
-    const d = initial('design', 'A').toUpperCase();
-    return d === 'B' || d === 'C' ? d : 'A';
-  });
+  const [siteKey, setSiteKey] = useState(() => getSite(initial('site', 'x')).key);
+  const [mode, setMode] = useState<ViewMode>(() => parseMode(initial('view', 'mixed')));
   const [showLabels, setShowLabels] = useState(false);
 
   const site = getSite(siteKey);
-  const layout = resolveLayout(site, design);
+  const layout = resolveLayout(site, mode);
   const brand = site.brand;
-  const state: SiteState = useMemo(() => ({ site, brand, layout, design, showLabels }), [site, brand, layout, design, showLabels]);
+  const state: SiteState = useMemo(() => ({ site, brand, layout, mode, showLabels }), [site, brand, layout, mode, showLabels]);
 
   useEffect(() => store.set('pg-site', siteKey), [siteKey]);
-  useEffect(() => store.set('pg-design', design), [design]);
+  useEffect(() => store.set('pg-view', mode), [mode]);
 
   // Brand tokens on :root so the whole document (incl. switchers) follows the brand.
   useLayoutEffect(() => {
@@ -88,8 +91,8 @@ export default function App() {
         {page}
       </main>
       <Footer key={`${site.key}-${layout.footer}`} home={route.page === 'home'} />
-      <DesignSwitcher onDesign={setDesign} onLabels={() => setShowLabels(v => !v)} isHome={route.page === 'home'} />
-      <SiteSwitcher onSite={setSiteKey} />
+      <DesignSwitcher onDesign={setMode} onLabels={() => setShowLabels(v => !v)} isHome={route.page === 'home'} />
+      <SiteSwitcher onSite={k => { setSiteKey(k); setMode('mixed'); }} />
     </SiteCtx.Provider>
   );
 }

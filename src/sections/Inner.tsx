@@ -18,12 +18,12 @@ import { ArrowRight } from 'lucide-react';
 /* A — Full-bleed photograph. Title always bottom-anchored at the same inset. */
 const PageHeroA: FC<PageHeroData> = ({ eyebrow, title, image }) => (
   <section className="ph-a" aria-labelledby="page-title">
-    <motion.div className="ph-a__media" initial={{ scale: 1.06 }} animate={{ scale: 1 }} transition={{ duration: 1.8, ease: EASE }}>
+    <motion.div className="ph-a__media" initial={{ opacity: 0.6 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: EASE }}>
       <Img src={image} eager />
     </motion.div>
     <div className="ph-a__shade" aria-hidden="true" />
     <div className="container ph-a__content">
-      <motion.div initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}>
+      <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}>
         <Eyebrow className="on-dark">{eyebrow}</Eyebrow>
         <Display as="h1" id="page-title" size="xl" text={title} />
       </motion.div>
@@ -35,12 +35,12 @@ const PageHeroA: FC<PageHeroData> = ({ eyebrow, title, image }) => (
 const PageHeroB: FC<PageHeroData> = ({ eyebrow, title, image }) => (
   <section className="ph-b" aria-labelledby="page-title">
     <div className="ph-b__panel">
-      <motion.div className="ph-b__title" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}>
+      <motion.div className="ph-b__title" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}>
         <Eyebrow className="on-field" rule={false} index="—">{eyebrow}</Eyebrow>
         <Display as="h1" id="page-title" size="l" text={title} />
       </motion.div>
     </div>
-    <motion.div className="ph-b__media" initial={{ clipPath: 'inset(0 0 0 100%)' }} animate={{ clipPath: 'inset(0 0 0 0%)' }} transition={{ duration: 1.1, ease: EASE }}>
+    <motion.div className="ph-b__media" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, ease: EASE }}>
       <Img src={image} eager sizes="60vw" />
     </motion.div>
   </section>
@@ -148,7 +148,7 @@ const BadgesA: FC<BadgesData> = ({ eyebrow, heading, paragraphs, badges }) => (
       </Reveal>
       <ul className="badges-a__logos" aria-label="Certifications and memberships">
         {badges.map((b, i) => (
-          <Reveal as="li" key={b.src} delay={Math.min(i * 0.04, 0.3)}><img src={b.src} alt={b.alt} loading="lazy" /></Reveal>
+          <Reveal as="li" key={b.src} ><img src={b.src} alt={b.alt} loading="lazy" /></Reveal>
         ))}
       </ul>
     </div>
@@ -206,7 +206,7 @@ const CapabilitiesB: FC<CapabilitiesData> = ({ eyebrow, heading, items }) => (
       </Reveal>
       <ol className="cap-b__list">
         {items.map((it, n) => (
-          <Reveal as="li" key={it} delay={n * 0.05}>
+          <Reveal as="li" key={it}>
             <span className="cap-b__num" aria-hidden="true">{String(n + 1).padStart(2, '0')}</span>
             <span>{it}</span>
           </Reveal>
@@ -231,7 +231,7 @@ const OtherServicesA: FC<{ services: Service[] }> = ({ services }) => (
       </Reveal>
       <div className="other-a__grid" data-count={services.length}>
         {services.map((s, i) => (
-          <Reveal key={s.slug} delay={i * 0.06}><ServiceCard service={s} index={i} compact /></Reveal>
+          <Reveal key={s.slug} delay={Math.min(i, 3) * 0.03}><ServiceCard service={s} index={i} compact /></Reveal>
         ))}
       </div>
     </div>
@@ -348,7 +348,7 @@ const ContactA: FC<ContactData> = ({ eyebrow, heading, body, items }) => (
         {items.map((it, n) => {
           const Icon = ICONS[it.kind];
           return (
-            <Reveal as="li" key={it.kind} delay={n * 0.06}>
+            <Reveal as="li" key={it.kind}>
               <span className="contact-a__icon" aria-hidden="true"><Icon size={22} strokeWidth={1.75} /></span>
               <span className="contact-a__label">{it.label}</span>
               <span className="contact-a__value"><ContactValue item={it} /></span>

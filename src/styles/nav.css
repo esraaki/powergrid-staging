@@ -30,7 +30,6 @@
 }
 .nav__logo { justify-self: start; display: block; }
 .nav__logo .brand-logo { height: 44px; }
-.nav__logo .brand-logo--northline, .nav__logo .brand-logo--summit { height: 46px; margin-left: -6px; }
 
 .nav__primary > ul { display: flex; align-items: center; gap: clamp(20px, 2.6vw, 44px); }
 .nav__item { position: relative; }
@@ -103,6 +102,9 @@
 
 .nav__social { justify-self: end; }
 .nav--overlay .nav__social a { border-color: rgba(255, 255, 255, 0.4); }
+/* Solid: brand-colour squares, white glyphs, no outline */
+.nav--social-solid .nav__social a { background: var(--accent-field); border-color: transparent; color: #fff; }
+.nav--social-solid .nav__social a:hover { background: var(--accent-hover); border-color: transparent; }
 
 .nav__toggle { display: none; place-items: center; width: 48px; height: 48px; justify-self: end; }
 
@@ -111,7 +113,6 @@
   .nav__primary, .nav__social { display: none; }
   .nav__toggle { display: grid; }
   .nav__logo .brand-logo { height: 38px; }
-  .nav__logo .brand-logo--northline, .nav__logo .brand-logo--summit { height: 40px; }
 }
 
 /* ---------- Mobile menu ---------- */

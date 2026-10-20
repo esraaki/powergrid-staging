@@ -90,15 +90,15 @@ export function Img({ src, alt = '', className = '', eager = false, sizes = '100
 }
 
 /* ---------- Reveal ---------- */
-export function Reveal({ children, delay = 0, y = 24, className = '', as = 'div' }: { children: ReactNode; delay?: number; y?: number; className?: string; as?: 'div' | 'li' }) {
+export function Reveal({ children, delay = 0, y = 12, className = '', as = 'div' }: { children: ReactNode; delay?: number; y?: number; className?: string; as?: 'div' | 'li' }) {
   const M = as === 'li' ? motion.li : motion.div;
   return (
     <M
       className={className}
       initial={{ opacity: 0, y }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.8, ease: EASE, delay }}
+      viewport={{ once: true, amount: 0.12 }}
+      transition={{ duration: 0.65, ease: EASE, delay }}
     >
       {children}
     </M>

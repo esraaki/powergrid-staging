@@ -42,26 +42,24 @@ const WhoB: FC<WhoData> = ({ eyebrow, heading, body, image, action }) => (
   </section>
 );
 
-/* C — Statement paragraph. Body copy set as display; staggered image pair. */
-const WhoC: FC<WhoData> = ({ eyebrow, heading, body, image, secondaryImage, action }) => (
+/* C — Monumental heading over a balanced image / statement pair.
+   Shares Hero C's frame: full-width heading, then a 6 + 5 column pair. */
+const WhoC: FC<WhoData> = ({ eyebrow, heading, body, image, action }) => (
   <section className="who-c" aria-labelledby="who-title">
-    <div className="container who-c__grid">
-      <Reveal className="who-c__label">
+    <div className="container">
+      <Reveal className="who-c__head">
         <Eyebrow>{eyebrow}</Eyebrow>
-        <h2 id="who-title" className="who-c__heading">{heading}</h2>
+        <Display id="who-title" size="l" text={heading} />
       </Reveal>
-      <Reveal className="who-c__statement" delay={0.08}>
-        <p>{body}</p>
-        <Button action={action} tone="dark" />
-      </Reveal>
-      <Reveal className="who-c__img who-c__img--1" delay={0.1}>
-        <Img src={image} sizes="45vw" />
-      </Reveal>
-      {secondaryImage && (
-        <Reveal className="who-c__img who-c__img--2" delay={0.2}>
-          <Img src={secondaryImage} sizes="30vw" />
+      <div className="who-c__pair">
+        <Reveal className="who-c__img">
+          <Img src={image} sizes="50vw" />
         </Reveal>
-      )}
+        <Reveal className="who-c__statement" delay={0.08}>
+          <p>{body}</p>
+          <Button action={action} tone="dark" />
+        </Reveal>
+      </div>
     </div>
   </section>
 );

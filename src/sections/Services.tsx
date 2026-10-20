@@ -47,7 +47,7 @@ export function ServiceIndex({ services, startIndex = 0 }: { services: Service[]
   return (
     <ol className="svc-index">
       {services.map((s, i) => (
-        <Reveal as="li" key={s.slug} delay={Math.min(i * 0.05, 0.3)}>
+        <Reveal as="li" key={s.slug}>
           <Link href={`/services/${s.slug}`} className="svc-index__row">
             <span className="svc-index__num" aria-hidden="true">{pad(startIndex + i + 1)}</span>
             <span className="svc-index__title">{s.name}</span>
@@ -79,7 +79,7 @@ const ServicesA: FC<ServicesData> = ({ eyebrow, title, intro, services }) => {
         <div className="svc-a__grid" data-count={services.length}>
           {services.map((s, i) => (
             <div key={s.slug} className="svc-a__cell" style={{ '--span': spans[i] } as React.CSSProperties}>
-              <Reveal delay={Math.min((i % 3) * 0.08, 0.24)} className="svc-a__reveal">
+              <Reveal delay={(i % 3) * 0.03} className="svc-a__reveal">
                 <ServiceCard service={s} index={i} span={spans[i]} />
               </Reveal>
             </div>

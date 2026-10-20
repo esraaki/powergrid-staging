@@ -57,7 +57,7 @@ function Dropdown({ label, items, active }: { label: string; items: MenuItem[]; 
 }
 
 export function Navigation({ tone }: { tone: NavTone }) {
-  const { brand } = useSite();
+  const { brand, layout } = useSite();
   const { path } = useRouter();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -96,7 +96,7 @@ export function Navigation({ tone }: { tone: NavTone }) {
   const solid = tone === 'solid' || scrolled;
 
   return (
-    <header className={`nav ${solid ? 'nav--solid' : 'nav--overlay'}`}>
+    <header className={`nav ${solid ? 'nav--solid' : 'nav--overlay'} nav--social-${layout.navSocial}`}>
       <a className="skip-link" href="#main">Skip to content</a>
       <div className="nav__bar">
         <Link href="/" className="nav__logo" aria-label={`${brand.name} — home`}>

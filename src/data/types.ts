@@ -82,7 +82,9 @@ export type Brand = {
 
 export type Action = { label: string; href: string; external?: boolean };
 
-export type HeroData = { eyebrow: string; title: string[]; body: string; images: string[]; action: Action };
+export type HeroData = { eyebrow: string; title: string[]; body: string; images: string[]; action: Action;
+  /** Optional quick links (used by Hero C as a ruled service index). */
+  index?: Action[] };
 export type WhoData = { eyebrow: string; heading: string; body: string; image: string; secondaryImage?: string; action: Action };
 export type PowerGridData = { statement: string };
 export type ServicesData = { eyebrow: string; title: string[]; intro: string; services: Service[] };
@@ -115,13 +117,21 @@ export type SiteLayout = {
   contact: InnerVariant;
   cta: { about: Variant; service: Variant; safety: Variant; careers: Variant };
   footer: Variant;
+  /** Navigation social links: solid brand-colour squares, or quiet outlines. */
+  navSocial: 'solid' | 'outline';
 };
 
+/**
+ * A finished company website: its brand + content, and the curated mix of
+ * A / B / C sections it is assembled from.
+ */
 export type Site = {
   key: string;
+  /** Prototype label, e.g. "Variation X" */
   label: string;
   brand: Brand;
-  /** Fixed composition for demonstration sites. null = follows the Design switcher. */
-  layout: SiteLayout | null;
-  demo?: boolean;
+  layout: SiteLayout;
 };
+
+/** Prototype view: a pure design preset (A/B/C) or the site's own mixed composition. */
+export type ViewMode = Variant | 'mixed';

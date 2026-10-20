@@ -1,4 +1,4 @@
-# PowerGrid Design System — v47
+# PowerGrid Design System — v48
 
 A multi-brand website kit for the PowerGrid Services family of companies.
 
@@ -49,16 +49,34 @@ Test for distinctness: remove colour, logo and font — A, B and C are still rec
 
 Every variant of a section consumes the **same data contract** (`src/data/types.ts`), so swapping `services: 'A'` → `'C'` needs no content changes.
 
-### Site configuration
+### Mixed sites: X / Y / Z
+
+The three real companies are the three finished-site examples. Each is art-directed from all three libraries:
+
+| Slot | **X — AMPP** | **Y — CSR** | **Z — James** |
+|---|---|---|---|
+| Hero | A | B | C |
+| Who We Are | B | C | A |
+| PowerGrid | A | C | B |
+| Services | C | B | A |
+| Feature | A | A | C |
+| Footer | C | B | A |
+| Page hero (all inner pages) | A | B | A |
+| Editorial / Media | B / A | A / B | A / B |
+| Badges / Capabilities | A / A | B / B | A / B |
+| Other services / Contact | B / A | A / B | A / B |
+| CTA about · service · safety · careers | B·A·C·B | A·C·B·A | C·B·A·C |
+| Nav social | solid | outline | solid |
 
 ```ts
 // src/data/sites.ts
 const layoutX: SiteLayout = {
-  home: { hero: 'C', whoWeAre: 'A', powergrid: 'B', services: 'B', feature: 'A' },
+  home: { hero: 'A', whoWeAre: 'B', powergrid: 'A', services: 'C', feature: 'A' },
   pageHero: 'A',            // one inner-hero system per site → consistent titles everywhere
-  editorial: 'B', media: 'A', badges: 'B', capabilities: 'A', otherServices: 'B', contact: 'A',
-  cta: { about: 'C', service: 'B', safety: 'A', careers: 'B' },
-  footer: 'B',
+  editorial: 'B', media: 'A', badges: 'A', capabilities: 'A', otherServices: 'B', contact: 'A',
+  cta: { about: 'B', service: 'A', safety: 'C', careers: 'B' },
+  footer: 'C',
+  navSocial: 'solid',
 };
 ```
 
@@ -78,9 +96,9 @@ Heading metrics (`headingScale`, leading, tracking, case) normalise very differe
 
 ## Adding a company
 
-1. Copy `src/data/brands/ampp.ts` → `src/data/brands/<company>.ts` and fill it in. Services can be any count, because the mosaic, index, navigator, nav dropdown and footer all adapt.
+1. Copy `src/data/brands/ampp.ts` → `src/data/brands/<company>.ts` and fill it in. Services can be any count, because the mosaic, index, navigator, hero index, nav dropdown and footer all adapt.
 2. Put logos in `public/assets/` (one for light grounds, one for dark).
-3. Add the site to `SITES` in `src/data/sites.ts`, either with `layout: null` (it follows a preset) or with its own `SiteLayout` mix.
+3. Add an entry to `SITES` in `src/data/sites.ts` with its brand and a curated `SiteLayout`.
 
 There are no CSS edits and no component edits.
 
@@ -88,10 +106,10 @@ There are no CSS edits and no component edits.
 
 ## Prototype controls (staging only)
 
-- **Bottom-left: Design** A / B / C, plus a layers toggle that tags every section with its slot + variant. It's locked for the X / Y demo sites, which carry fixed mixes.
-- **Bottom-right: Site**: AMPP, CSR, James; then Variation X (Northline Infrastructure) and Variation Y (Summit Gridworks).
-- Choices persist in `localStorage` while you navigate. Switching company on a service page maps to the service at the same position.
-- Shareable links: `?site=csr&design=B`.
+- **Bottom-left: DESIGN A / B / C.** Review one complete design direction (every slot from one library), shown in the current company's brand. The layers button tags every section with its slot + variant.
+- **Bottom-right: MIXED SITES X / Y / Z.** Load a finished site: AMPP, CSR or James with its own curated A/B/C mix. When a design preset is active, the current company is underlined in its brand colour.
+- The site opens on **X / AMPP (mixed)**. Choices persist while you navigate, and switching company on a service page maps to the service at the same position.
+- Shareable links: `?site=y&view=mixed`, `?site=z&view=C`.
 
 These live in `src/prototype/` and `src/styles/prototype.css`; delete both (and their two lines in `App.tsx`) for production sites.
 
@@ -117,4 +135,5 @@ src/
 - **Careers** is an internal page that links out to each company's own careers platform (`careersUrl`).
 - Placeholder copy is neutral: no years, headcounts, statistics, awards or claims.
 - Photography is Pexels placeholder imagery (see `public/assets/STOCK-SOURCES.txt`). Replace it with approved company photography.
+- Motion is deliberately restrained: short travel (≤ 12px), single fades on hero entrances, no wipes, slides or long staggers.
 - Accessibility: semantic landmarks, skip link, keyboard-operable dropdowns (Enter / Escape), a modal mobile menu with focus management and scroll lock, visible focus rings, `prefers-reduced-motion` respected (crossfades and reveals disabled), and decorative images given empty alt text.
