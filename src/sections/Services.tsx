@@ -96,7 +96,6 @@ const ServicesB: FC<ServicesData> = ({ eyebrow, title, intro, services }) => (
     <div className="container">
       <Reveal className="svc-b__head">
         <div className="svc-b__margin">
-          <span className="index-number" aria-hidden="true">03</span>
           <Eyebrow rule={false}>{eyebrow}</Eyebrow>
         </div>
         <div className="svc-b__title">

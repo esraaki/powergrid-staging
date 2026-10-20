@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import type { ReactNode, CSSProperties } from 'react';
+import { useLayoutEffect, useRef, type ReactNode, type CSSProperties } from 'react';
 import type { Action } from '../data/types';
 import { Link } from '../system/router';
 import { srcSet } from '../data/media';
@@ -57,11 +57,54 @@ export function Eyebrow({ children, index, rule = true, className = '' }: { chil
 
 /* ---------- Display heading ---------- */
 type Size = 'xxl' | 'xl' | 'l' | 'm' | 's';
+/**
+ * Shrink-to-fit for oversized display headings. CSS sets the intended size; if the
+ * longest line would overflow its column (long words, wide brand faces, narrow
+ * screens) the font-size is reduced just enough to fit. It never enlarges.
+ */
+function useFitLines(enabled: boolean) {
+  const ref = useRef<HTMLHeadingElement>(null);
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!enabled || !el) return;
+    const fit = () => {
+      el.style.fontSize = '';
+      const avail = el.clientWidth;
+      const size = parseFloat(getComputedStyle(el).fontSize);
+      const range = document.createRange();
+      let longest = 0;
+      // Measure each designed line unwrapped — otherwise the browser has already broken
+      // an over-long word across two lines and it would look like it fits.
+      el.querySelectorAll<HTMLElement>('.display__line').forEach(line => {
+        line.style.whiteSpace = 'nowrap';
+        range.selectNodeContents(line);
+        longest = Math.max(longest, range.getBoundingClientRect().width);
+        line.style.whiteSpace = '';
+      });
+      if (avail > 0 && longest > avail) el.style.fontSize = `${Math.floor(size * (avail / longest) * 0.99)}px`;
+    };
+    fit();
+    // Refit only when the column width changes — the font change itself alters height.
+    let lastWidth = el.parentElement?.clientWidth ?? 0;
+    const ro = new ResizeObserver(entries => {
+      const w = Math.round(entries[0].contentRect.width);
+      if (w !== lastWidth) { lastWidth = w; fit(); }
+    });
+    ro.observe(el.parentElement ?? el);
+    // Brand fonts load after a switch; refit once real metrics are available.
+    document.fonts?.ready.then(fit);
+    document.fonts?.addEventListener('loadingdone', fit);
+    return () => { ro.disconnect(); document.fonts?.removeEventListener('loadingdone', fit); };
+  }, [enabled]);
+  return ref;
+}
+
 export function Display({
-  as: Tag = 'h2', size = 'l', lines, text, accentLine, className = '', id,
-}: { as?: 'h1' | 'h2' | 'h3'; size?: Size; lines?: string[]; text?: string; accentLine?: number; className?: string; id?: string }) {
+  as: Tag = 'h2', size = 'l', lines, text, accentLine, className = '', id, fit = false,
+}: { as?: 'h1' | 'h2' | 'h3'; size?: Size; lines?: string[]; text?: string; accentLine?: number; className?: string; id?: string; fit?: boolean }) {
+  const ref = useFitLines(fit && !!lines);
   return (
-    <Tag className={`display display--${size} ${className}`} id={id}>
+    <Tag ref={ref} className={`display display--${size} ${className}`} id={id}>
       {lines
         ? lines.map((l, i) => (
             <span key={i} className={`display__line${i === accentLine ? ' is-accent' : ''}`}>

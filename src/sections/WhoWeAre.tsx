@@ -24,7 +24,6 @@ const WhoB: FC<WhoData> = ({ eyebrow, heading, body, image, action }) => (
     <div className="container">
       <div className="who-b__grid">
         <Reveal className="who-b__margin">
-          <span className="index-number" aria-hidden="true">02</span>
           <Eyebrow rule={false}>{eyebrow}</Eyebrow>
         </Reveal>
         <Reveal className="who-b__heading" delay={0.06}>

@@ -37,6 +37,8 @@
   padding-bottom: clamp(96px, 11vh, 136px);
 }
 .hero-a__title { grid-column: 1 / span 8; }
+/* Larger than the shared xl step; Display's fit option keeps every brand's longest line inside the column. */
+.hero-a__h1 { font-size: calc(clamp(60px, 9.6vw, 172px) * var(--heading-scale)); }
 .hero-a__aside { grid-column: 9 / span 4; padding-bottom: 6px; }
 .hero-a__aside p { margin-bottom: 32px; color: rgba(255, 255, 255, 0.88); max-width: 40ch; }
 @media (max-width: 960px) {
@@ -66,11 +68,12 @@
   background: var(--accent-field);
   color: #fff;
 }
+.hero-b__h1 { margin-block: auto; font-size: calc(clamp(54px, 7vw, 124px) * var(--heading-scale)); }
 .hero-b__foot p { max-width: 42ch; margin-bottom: 32px; font-size: var(--fs-lead); line-height: 1.55; color: rgba(255, 255, 255, 0.92); }
 .hero-b__media { position: relative; overflow: hidden; background: var(--charcoal); }
 .hero-b__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 @media (max-width: 900px) {
-  .hero-b { grid-template-columns: 1fr; min-height: 0; }
+  .hero-b { grid-template-columns: minmax(0, 1fr); min-height: 0; }
   .hero-b__panel { padding: 40px var(--gutter) 48px; gap: 36px; }
   .hero-b__media { aspect-ratio: 4 / 3; }
 }
@@ -89,8 +92,7 @@
   margin-bottom: clamp(28px, 3.2vw, 48px);
 }
 .hero-c__head { grid-column: 1 / span 9; }
-.hero-c__head .eyebrow { margin-bottom: clamp(20px, 2.4vw, 36px); }
-.hero-c__title { font-size: calc(clamp(52px, 9.4vw, 164px) * var(--heading-scale)); color: var(--ink); }
+.hero-c__title { font-size: calc(clamp(62px, 11vw, 200px) * var(--heading-scale)); color: var(--ink); }
 .hero-c__aside { grid-column: 10 / span 3; padding-bottom: 0.4em; }
 .hero-c__aside p { margin-bottom: 24px; font-size: var(--fs-lead); line-height: 1.55; color: var(--ink-2); }
 .hero-c__stage { position: relative; aspect-ratio: 21 / 8; overflow: hidden; background: var(--charcoal); }

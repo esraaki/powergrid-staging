@@ -1,7 +1,7 @@
 import { useEffect, useState, type FC } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
 import type { HeroData, Variant } from '../data/types';
-import { Button, Display, Eyebrow, Img, TextLink, EASE } from '../components/ui';
+import { Button, Display, Img, TextLink, EASE } from '../components/ui';
 import type { NavTone } from '../components/Navigation';
 
 function useCycle(length: number, ms = 7000) {
@@ -28,7 +28,7 @@ const fade = (delay = 0) => ({
 });
 
 /* A — Cinematic. Full-bleed field photography, crossfading; type anchored low-left. */
-const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
+const HeroA: FC<HeroData> = ({ title, body, images, action }) => {
   const i = useCycle(images.length);
   return (
     <section className="hero-a" aria-labelledby="hero-title">
@@ -49,8 +49,7 @@ const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
       <div className="hero-a__shade" aria-hidden="true" />
       <div className="container hero-a__content">
         <motion.div className="hero-a__title" {...rise(0.1)}>
-          <Eyebrow className="on-dark">{eyebrow}</Eyebrow>
-          <Display as="h1" id="hero-title" size="xl" lines={title} accentLine={title.length - 1} />
+          <Display as="h1" id="hero-title" size="xl" lines={title} accentLine={title.length - 1} className="hero-a__h1" fit />
         </motion.div>
         <motion.div className="hero-a__aside" {...fade(0.35)}>
           <p className="lead">{body}</p>
@@ -62,13 +61,10 @@ const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
 };
 
 /* B — Split field. Flat brand-colour panel against a single photograph. */
-const HeroB: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
+const HeroB: FC<HeroData> = ({ title, body, images, action }) => (
   <section className="hero-b" aria-labelledby="hero-title">
     <motion.div className="hero-b__panel" {...rise(0.05)}>
-      <div className="hero-b__top">
-        <Eyebrow className="on-field" rule={false} index="01">{eyebrow}</Eyebrow>
-      </div>
-      <Display as="h1" id="hero-title" size="l" lines={title} />
+      <Display as="h1" id="hero-title" size="l" lines={title} className="hero-b__h1" fit />
       <div className="hero-b__foot">
         <p>{body}</p>
         <Button action={action} tone="light" />
@@ -82,13 +78,12 @@ const HeroB: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
 
 /* C — Monumental type. The headline carries the page; one wide photograph sits
    beneath it on the same 12-column frame. */
-const HeroC: FC<HeroData> = ({ eyebrow, title, body, images, action }) => (
+const HeroC: FC<HeroData> = ({ title, body, images, action }) => (
   <section className="hero-c" aria-labelledby="hero-title">
     <div className="container">
       <div className="hero-c__top">
         <motion.div className="hero-c__head" {...rise(0.05)}>
-          <Eyebrow>{eyebrow}</Eyebrow>
-          <Display as="h1" id="hero-title" size="xxl" lines={title} accentLine={title.length - 1} className="hero-c__title" />
+          <Display as="h1" id="hero-title" size="xxl" lines={title} accentLine={title.length - 1} className="hero-c__title" fit />
         </motion.div>
         <motion.div className="hero-c__aside" {...fade(0.3)}>
           <p>{body}</p>

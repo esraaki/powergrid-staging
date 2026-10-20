@@ -34,7 +34,6 @@ const FeatureB: FC<FeatureData> = ({ eyebrow, title, body, images }) => (
       </Reveal>
       <Reveal className="feat-b__caption">
         <div className="feat-b__margin">
-          <span className="index-number" aria-hidden="true">04</span>
           <Eyebrow rule={false}>{eyebrow}</Eyebrow>
         </div>
         <Display id="feature-title" size="m" lines={title} className="feat-b__title" />

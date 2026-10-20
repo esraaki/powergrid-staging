@@ -1,4 +1,4 @@
-# PowerGrid Design System — v52
+# PowerGrid Design System — v53
 
 A multi-brand website kit for the PowerGrid Services family of companies.
 
