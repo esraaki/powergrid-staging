@@ -20,11 +20,24 @@ export default function App() {
   const { brand, layout } = resolveView(view);
   const state: SiteState = useMemo(() => ({ brand, layout, view, showLabels }), [brand, layout, view, showLabels]);
 
-  // Layers explain how a mixed website was assembled — not meaningful for a pure design.
+  const viewId = (v: View) => (v.kind === 'design' ? `design-${v.design}` : `website-${v.website.key}`);
+
+  // Switching Design / Website returns to the top so the new hero is the first thing seen.
+  // Only toolbar switches set this flag — ordinary route changes keep their own behaviour.
+  const scrollOnSwitch = useRef(false);
   const selectView = (next: View) => {
+    if (viewId(next) === viewId(view)) return;
+    scrollOnSwitch.current = true;
     setView(next);
+    // Layers explain how a mixed website was assembled — not meaningful for a pure design.
     if (next.kind === 'design') setShowLabels(false);
   };
+  // After the new composition has rendered, before paint: no flash of the old scroll position.
+  useLayoutEffect(() => {
+    if (!scrollOnSwitch.current) return;
+    scrollOnSwitch.current = false;
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, [view]);
 
   // Brand tokens on :root so the whole document (incl. switchers) follows the brand.
   useLayoutEffect(() => {

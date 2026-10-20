@@ -26,7 +26,10 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
   const bar = useRef<HTMLDivElement>(null);
   const touch = useRef(window.matchMedia('(hover: none)').matches);
 
+  const suppressUntil = useRef(0);
   const show = useCallback(() => { window.clearTimeout(timer.current); setShown(true); }, []);
+  // The bottom-edge strip may sit under the pointer as the bar slides away after a choice.
+  const showFromEdge = useCallback(() => { if (Date.now() > suppressUntil.current) show(); }, [show]);
   const hideSoon = useCallback(() => {
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => {
@@ -37,6 +40,17 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
     }, touch.current ? HIDE_AFTER_TOUCH_MS : HIDE_AFTER_POINTER_MS);
   }, []);
   useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  /* After choosing a Design or Website the bar gets out of the way so the new hero
+     is seen unobstructed. Keyboard activation (detail 0) keeps it open for further tabbing. */
+  const choose = (next: View, e: React.MouseEvent) => {
+    onView(next);
+    if (e.detail === 0) return;
+    window.clearTimeout(timer.current);
+    suppressUntil.current = Date.now() + 400;
+    setShown(false);
+    (e.currentTarget as HTMLElement).blur();
+  };
 
   const design = view.kind === 'design' ? view.design : null;
   const website = view.kind === 'website' ? view.website : null;
@@ -49,7 +63,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
   return (
     <div className={`protodock${shown ? ' is-shown' : ''}`}>
       {/* Pointer trigger: an invisible strip along the bottom edge. */}
-      <div className="protodock__zone" aria-hidden="true" onMouseEnter={show} onMouseLeave={hideSoon} />
+      <div className="protodock__zone" aria-hidden="true" onMouseEnter={showFromEdge} onMouseMove={showFromEdge} onMouseLeave={hideSoon} />
 
       {/* Touch trigger: a small handle tab. */}
       <button type="button" className="protodock__handle" aria-controls="protobar" aria-expanded={shown} onClick={() => { show(); hideSoon(); }}>
@@ -77,7 +91,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
               type="button"
               className="protobar__seg"
               aria-pressed={design === v}
-              onClick={() => onView({ kind: 'design', design: v })}
+              onClick={e => choose({ kind: 'design', design: v }, e)}
               title={`Design ${v}`}
             >
               {v}
@@ -96,7 +110,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
               aria-pressed={website?.key === w.key}
               aria-label={`${w.label} — ${w.brand.name}`}
               title={`${w.label} — ${w.brand.shortName}`}
-              onClick={() => onView({ kind: 'website', website: w })}
+              onClick={e => choose({ kind: 'website', website: w }, e)}
               style={{ background: fieldColor(w.brand.accent) }}
             >
               {w.key}
