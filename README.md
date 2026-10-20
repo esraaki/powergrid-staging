@@ -1,4 +1,4 @@
-# PowerGrid Design System — v51
+# PowerGrid Design System — v52
 
 A multi-brand website kit for the PowerGrid Services family of companies.
 
@@ -119,7 +119,7 @@ A thin black toolbar that stays **hidden** so the website fills the screen.
 | **DESIGN A / B / C**: show a pure design direction | **WEBSITES 1 / 2 / 3**: brand-colour squares; 1 = AMPP, 2 = CSR, 3 = James |
 | | **Layers** (shown only while a website is active): tags every section, footer included, with the design it came from, e.g. `HERO · B` |
 
-**Choosing a different Design or Website** jumps instantly to the top of the current page so the new hero is seen first, and the toolbar tucks away. Re-selecting the current option does nothing; ordinary navigation is unaffected. Keyboard users keep the toolbar open for further tabbing.
+**Choosing any Design or Website** opens it fresh: it goes to that selection's **homepage**, at the very top, and the toolbar tucks away. Normal navigation afterwards (About, Safety, services…) stays within the selection. Keyboard users keep the toolbar open for further tabbing.
 
 **State is in memory only.** Your selection survives in-app navigation and browser back/forward. A full page refresh always restarts the presentation at pure **Design A** (AMPP brand, Layers off). Nothing is stored in the URL, localStorage or sessionStorage.
 

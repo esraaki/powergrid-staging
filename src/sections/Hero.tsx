@@ -57,14 +57,6 @@ const HeroA: FC<HeroData> = ({ eyebrow, title, body, images, action }) => {
           <Button action={action} tone="accent" />
         </motion.div>
       </div>
-      {images.length > 1 && (
-        <div className="container hero-a__ticks" aria-hidden="true">
-          {images.map((src, n) => (
-            <span key={src} className={n === i ? 'is-active' : ''}><i /></span>
-          ))}
-          <em>{String(i + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}</em>
-        </div>
-      )}
     </section>
   );
 };

@@ -39,21 +39,6 @@
 .hero-a__title { grid-column: 1 / span 8; }
 .hero-a__aside { grid-column: 9 / span 4; padding-bottom: 6px; }
 .hero-a__aside p { margin-bottom: 32px; color: rgba(255, 255, 255, 0.88); max-width: 40ch; }
-.hero-a__ticks {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 36px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.hero-a__ticks span { position: relative; width: 56px; height: 2px; background: rgba(255, 255, 255, 0.28); overflow: hidden; }
-.hero-a__ticks i { position: absolute; inset: 0; background: #fff; transform: scaleX(0); transform-origin: left; }
-.hero-a__ticks .is-active i { animation: tick 7s linear forwards; }
-.hero-a__ticks em { margin-left: 14px; font-style: normal; font-size: 12px; font-weight: 700; letter-spacing: 0.16em; color: rgba(255, 255, 255, 0.75); font-variant-numeric: tabular-nums; }
-@keyframes tick { to { transform: scaleX(1); } }
-@media (prefers-reduced-motion: reduce) { .hero-a__ticks .is-active i { transform: scaleX(1); animation: none; } }
 @media (max-width: 960px) {
   .hero-a__title, .hero-a__aside { grid-column: 1 / -1; }
   .hero-a__aside { margin-top: 20px; }
@@ -61,7 +46,6 @@
 @media (max-width: 640px) {
   .hero-a { min-height: max(600px, 100svh); }
   .hero-a__content { padding-bottom: 88px; }
-  .hero-a__ticks { display: none; }
 }
 
 /* ------------------------------------------------------------------
