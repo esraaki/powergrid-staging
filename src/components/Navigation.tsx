@@ -6,7 +6,9 @@ import {brandServices} from '../data/company';
 const logos={
   ampp:{light:'/assets/ampp-logo-light.svg',dark:'/assets/ampp-logo-dark.svg',name:'AMPP Construction'},
   csr:{light:'/assets/csr-logo-inverse.svg',dark:'/assets/csr-logo.svg',name:'Collective Strategic Resources'},
-  james:{light:'/assets/james-logo-white.png',dark:'/assets/james-logo.svg',name:'James Powerline Construction'}
+  james:{light:'/assets/james-logo-white.png',dark:'/assets/james-logo.svg',name:'James Powerline Construction'},
+  x:{light:'/assets/northline-logo-white.svg',dark:'/assets/northline-logo.svg',name:'Northline Infrastructure'},
+  y:{light:'/assets/summit-logo-white.svg',dark:'/assets/summit-logo.svg',name:'Summit Gridworks'}
 };
 
 export function Navigation({brand}:{brand:BrandKey}){

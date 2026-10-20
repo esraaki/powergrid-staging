@@ -1,5 +1,5 @@
 export type Service={id:string;name:string;description:string;image:string};
-export type BrandKey='ampp'|'csr'|'james';
+export type BrandKey='ampp'|'csr'|'james'|'x'|'y';
 
 export const services:Service[]=[
  {id:'distribution',name:'Electric Power',description:'Building and maintaining the systems that keep communities powered.',image:'https://images.pexels.com/photos/34610698/pexels-photo-34610698.jpeg?auto=compress&cs=tinysrgb&w=1400'},
@@ -24,6 +24,19 @@ export const brandServices:Record<BrandKey,Service[]>={
   {id:'underground',name:'Underground Distribution',description:'Practical underground distribution work backed by experienced utility crews.',image:'https://images.pexels.com/photos/5328573/pexels-photo-5328573.jpeg?auto=compress&cs=tinysrgb&w=1400'},
   {id:'renewables',name:'Storm Response',description:'Responsive crews and field support when restoration work cannot wait.',image:'https://images.pexels.com/photos/17321815/pexels-photo-17321815.jpeg?auto=compress&cs=tinysrgb&w=1400'},
   {id:'data',name:'Substation Support',description:'Hands-on construction and maintenance support for critical electrical facilities.',image:'https://images.pexels.com/photos/9720534/pexels-photo-9720534.jpeg?auto=compress&cs=tinysrgb&w=1400'}
+ ],
+ x:[
+  {id:'distribution',name:'Grid Construction',description:'Field construction for dependable electrical networks and growing communities.',image:'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'underground',name:'Underground Systems',description:'Coordinated underground infrastructure for complex sites and utility corridors.',image:'https://images.pexels.com/photos/1216589/pexels-photo-1216589.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'renewables',name:'Energy Infrastructure',description:'Construction support for modern generation, transmission and energy systems.',image:'https://images.pexels.com/photos/433308/pexels-photo-433308.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'data',name:'Critical Facilities',description:'Infrastructure delivery for facilities where coordination and reliability matter.',image:'https://images.pexels.com/photos/325229/pexels-photo-325229.jpeg?auto=compress&cs=tinysrgb&w=1400'}
+ ],
+ y:[
+  {id:'distribution',name:'Power Delivery',description:'Experienced crews supporting essential power delivery infrastructure.',image:'https://images.pexels.com/photos/236089/pexels-photo-236089.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'underground',name:'Civil Infrastructure',description:'Practical civil and underground support built around field conditions.',image:'https://images.pexels.com/photos/159306/construction-site-build-construction-work-159306.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'renewables',name:'Storm & Restoration',description:'Responsive field teams supporting restoration and urgent infrastructure needs.',image:'https://images.pexels.com/photos/1114690/pexels-photo-1114690.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'data',name:'Substation & Systems',description:'Construction support for critical electrical systems and facilities.',image:'https://images.pexels.com/photos/414837/pexels-photo-414837.jpeg?auto=compress&cs=tinysrgb&w=1400'},
+  {id:'specialty',name:'Specialty Field Services',description:'Flexible expertise for demanding scopes and unusual project conditions.',image:'https://images.pexels.com/photos/585419/pexels-photo-585419.jpeg?auto=compress&cs=tinysrgb&w=1400'}
  ]
 };
 
@@ -36,7 +49,9 @@ export const brandContent={
  },
  james:{
   heroTitle:['POWERLINE','EXPERIENCE','THAT DELIVERS.'],heroBody:'Experienced crews, practical field knowledge and reliable execution for powerline and utility infrastructure projects.',about:'James Powerline Construction is built around field experience, responsive crews and the practical knowledge required to keep utility work moving.',servicesIntro:'From overhead line construction to restoration, substations and specialty maintenance, our crews bring hands-on experience to essential power infrastructure.',serviceLead:'James brings hands-on powerline experience, responsive field teams and practical execution to every project.',serviceBody:'Whether the work involves new construction, upgrades, restoration or maintenance, our crews focus on safe operations, clear coordination and dependable results in the field.',cta:'Need an experienced field partner? Let’s talk about where James can support the work.',featureTitle:['FIELD EXPERIENCE.','DEPENDABLE','RESULTS.'],featureBody:'From everyday utility work to demanding construction environments, experienced crews help keep essential systems moving forward.',featureImage:'https://images.pexels.com/photos/35571322/pexels-photo-35571322.jpeg?auto=compress&cs=tinysrgb&w=2200'
- }
+ },
+ x:{heroTitle:['BUILT FOR','THE NEXT','CONNECTION.'],heroBody:'Northline Infrastructure brings coordinated field teams and practical execution to the systems communities rely on.',about:'We connect experienced crews, clear planning and responsive field operations to deliver essential infrastructure with confidence.',servicesIntro:'From grid construction to critical facilities, Northline supports infrastructure programs with disciplined coordination and field-ready expertise.',serviceLead:'Northline combines practical field knowledge with responsive coordination for dependable project delivery.',serviceBody:'Our teams support construction, upgrades and complex field scopes with clear communication and a focus on reliable execution.',cta:'Planning your next infrastructure project? Connect with the Northline team.',featureTitle:['INFRASTRUCTURE','THAT MOVES','WITH YOU.'],featureBody:'Flexible teams and dependable execution help critical projects keep moving from planning through field delivery.',featureImage:'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=2200'},
+ y:{heroTitle:['READY WHEN','THE GRID','NEEDS US.'],heroBody:'Summit Gridworks supports power and civil infrastructure with experienced crews, responsive coordination and practical field expertise.',about:'Built around field experience, Summit helps utilities and project partners move essential work forward safely and efficiently.',servicesIntro:'Our teams support power delivery, civil infrastructure, restoration and specialty scopes across demanding project environments.',serviceLead:'Summit brings hands-on infrastructure experience and responsive field leadership to every scope.',serviceBody:'From planned construction to urgent field needs, our crews focus on coordination, safe execution and dependable results.',cta:'Have a project ahead? Talk with Summit about the work and where our crews can help.',featureTitle:['FIELD READY.','PROJECT','FOCUSED.'],featureBody:'Experienced people, practical planning and responsive support for the infrastructure work that cannot stand still.',featureImage:'https://images.pexels.com/photos/236089/pexels-photo-236089.jpeg?auto=compress&cs=tinysrgb&w=2200'}
 } as const;
 
 export const company={
