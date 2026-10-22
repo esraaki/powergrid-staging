@@ -1,4 +1,4 @@
-# PowerGrid Design System — v53
+# PowerGrid Design System — v54
 
 A multi-brand website kit for the PowerGrid Services family of companies.
 
@@ -108,11 +108,7 @@ There are no CSS edits and no component edits.
 
 ## Prototype controls (staging only)
 
-A thin black toolbar that stays **hidden** so the website fills the screen.
-
-- **Desktop:** move the pointer to the bottom edge of the window. It reveals within a 14px invisible strip and hides about 0.7s after you move away.
-- **Touch:** tap the small handle tab at the bottom centre. Hide it with the ⌄ button, or it tucks away after 5s idle.
-- **Keyboard:** tabbing into any control reveals it.
+A thin black toolbar is always fixed to the bottom of the viewport. The page reserves its height, so footer content is never hidden behind it.
 
 | Left | Right |
 |---|---|

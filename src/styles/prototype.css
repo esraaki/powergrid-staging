@@ -1,30 +1,13 @@
 /* ==================================================================
-   Staging-only presentation toolbar — a thin black ribbon that stays
-   hidden until summoned from the bottom edge. Deliberately neutral so
-   it never reads as part of a company site. The website itself runs
-   all the way to the bottom of the viewport.
+   Staging-only presentation toolbar — a thin black ribbon always fixed
+   to the bottom of the viewport. Deliberately neutral so it never
+   reads as part of a company site.
    ================================================================== */
 :root { --protobar-h: 36px; }
 
-/* Invisible pointer trigger along the bottom edge — tall enough to find without aiming. */
-.protodock__zone { position: fixed; left: 0; right: 0; bottom: 0; z-index: 298; height: 14px; }
-
-/* Touch trigger — a small handle tab, only on devices without hover. */
-.protodock__handle {
-  position: fixed;
-  left: 50%;
-  bottom: 0;
-  z-index: 299;
-  display: none;
-  place-items: center;
-  width: 44px;
-  height: 20px;
-  margin-left: -22px;
-  background: rgba(10, 11, 12, 0.72);
-  color: rgba(255, 255, 255, 0.85);
-  transition: opacity 0.2s;
-}
-.protodock.is-shown .protodock__handle { opacity: 0; pointer-events: none; }
+/* Reserve the ribbon's height so footer content is never hidden behind it. */
+body { padding-bottom: var(--protobar-h); background: #0a0b0c; }
+.mnav__body { padding-bottom: calc(40px + var(--protobar-h)); }
 
 .protobar {
   position: fixed;
@@ -43,17 +26,13 @@
   color: #fff;
   font-family: 'Inter', Arial, sans-serif;
   font-size: 12px;
-  transform: translateY(100%);
-  opacity: 0;
-  transition: transform 0.22s var(--ease), opacity 0.18s linear;
 }
-.protodock.is-shown .protobar { transform: none; opacity: 1; }
 
 .protobar__group { position: relative; display: flex; align-items: center; gap: 4px; }
 .protobar__label { margin-right: 6px; font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
 
 /* Designs: A / B / C */
-.protobar__seg, .protobar__icon, .protobar__close {
+.protobar__seg, .protobar__icon {
   display: grid;
   place-items: center;
   width: 26px;
@@ -62,7 +41,7 @@
   font-weight: 700;
   color: rgba(255, 255, 255, 0.8);
 }
-.protobar__seg:hover, .protobar__icon:hover, .protobar__close:hover { background: rgba(255, 255, 255, 0.12); }
+.protobar__seg:hover, .protobar__icon:hover { background: rgba(255, 255, 255, 0.12); }
 .protobar__seg[aria-pressed='true'] { background: #fff; color: #0a0b0c; }
 
 /* Websites: 1 / 2 / 3 — brand-colour squares */
@@ -85,9 +64,6 @@
 .protobar__icon { width: 32px; margin-left: 8px; border-left: 1px solid rgba(255, 255, 255, 0.16); }
 .protobar__icon.is-on { color: #ffc233; }
 
-/* Close — touch only */
-.protobar__close { display: none; margin-left: 4px; }
-
 /* Context note, above the ribbon on hover / keyboard focus */
 .protobar__note {
   display: none;
@@ -108,15 +84,9 @@
 .slot__tag i { font-style: normal; opacity: 0.55; }
 
 @media (hover: none) {
-  .protodock__zone { display: none; }
-  .protodock__handle { display: grid; }
-  .protobar__close { display: grid; }
   .protobar__design:hover .protobar__note { display: none; }
 }
 @media (max-width: 640px) {
   .protobar { padding: 0 8px; }
   .protobar__label { display: none; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .protobar { transition: opacity 0.01ms; }
 }

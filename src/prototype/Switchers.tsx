@@ -1,14 +1,10 @@
 /* Staging-only presentation toolbar. Not part of production company sites.
 
-   A thin black ribbon, hidden by default, that docks to the bottom edge:
+   A thin black ribbon, always fixed to the bottom edge:
      left   DESIGN A / B / C       — pure design directions
      right  WEBSITES 1 / 2 / 3     — demonstration websites mixed from A/B/C
-            + Layers               — tag each section with its A/B/C origin
-
-   Reveal: pointer → an invisible strip along the bottom edge; touch → a small
-   handle tab; keyboard → focusing any control. It hides again shortly after. */
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { ChevronDown, ChevronUp, Layers } from 'lucide-react';
+            + Layers               — tag each section with its A/B/C origin */
+import { Layers } from 'lucide-react';
 import type { View } from '../data/types';
 import { DEFAULT_BRAND, WEBSITES } from '../data/websites';
 import { useSite } from '../system/site';
@@ -16,41 +12,9 @@ import { fieldColor } from '../system/theme';
 
 type Props = { onView: (v: View) => void; onLabels: () => void; isHome: boolean };
 
-const HIDE_AFTER_POINTER_MS = 700;
-const HIDE_AFTER_TOUCH_MS = 5000;
-
 export function ProtoBar({ onView, onLabels, isHome }: Props) {
   const { view, showLabels } = useSite();
-  const [shown, setShown] = useState(false);
-  const timer = useRef<number>();
-  const bar = useRef<HTMLDivElement>(null);
-  const touch = useRef(window.matchMedia('(hover: none)').matches);
-
-  const suppressUntil = useRef(0);
-  const show = useCallback(() => { window.clearTimeout(timer.current); setShown(true); }, []);
-  // The bottom-edge strip may sit under the pointer as the bar slides away after a choice.
-  const showFromEdge = useCallback(() => { if (Date.now() > suppressUntil.current) show(); }, [show]);
-  const hideSoon = useCallback(() => {
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => {
-      // Never hide out from under keyboard focus.
-      const active = document.activeElement;
-      if (!touch.current && active && bar.current?.contains(active) && active.matches(':focus-visible')) return;
-      setShown(false);
-    }, touch.current ? HIDE_AFTER_TOUCH_MS : HIDE_AFTER_POINTER_MS);
-  }, []);
-  useEffect(() => () => window.clearTimeout(timer.current), []);
-
-  /* After choosing a Design or Website the bar gets out of the way so the new hero
-     is seen unobstructed. Keyboard activation (detail 0) keeps it open for further tabbing. */
-  const choose = (next: View, e: React.MouseEvent) => {
-    onView(next);
-    if (e.detail === 0) return;
-    window.clearTimeout(timer.current);
-    suppressUntil.current = Date.now() + 400;
-    setShown(false);
-    (e.currentTarget as HTMLElement).blur();
-  };
+  const choose = (next: View) => onView(next);
 
   const design = view.kind === 'design' ? view.design : null;
   const website = view.kind === 'website' ? view.website : null;
@@ -61,28 +25,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
       : `Design ${design} — pure design direction, shown in the ${DEFAULT_BRAND.shortName} brand.`;
 
   return (
-    <div className={`protodock${shown ? ' is-shown' : ''}`}>
-      {/* Pointer trigger: an invisible strip along the bottom edge. */}
-      <div className="protodock__zone" aria-hidden="true" onMouseEnter={showFromEdge} onMouseMove={showFromEdge} onMouseLeave={hideSoon} />
-
-      {/* Touch trigger: a small handle tab. */}
-      <button type="button" className="protodock__handle" aria-controls="protobar" aria-expanded={shown} onClick={() => { show(); hideSoon(); }}>
-        <ChevronUp size={16} aria-hidden="true" />
-        <span className="sr-only">Show prototype controls</span>
-      </button>
-
-      <div
-        id="protobar"
-        ref={bar}
-        className="protobar"
-        role="region"
-        aria-label="Prototype controls"
-        onMouseEnter={show}
-        onMouseLeave={hideSoon}
-        onFocus={show}
-        onBlur={e => { if (!e.currentTarget.contains(e.relatedTarget as Node)) hideSoon(); }}
-        onPointerDown={() => { if (touch.current) { show(); hideSoon(); } }}
-      >
+    <div id="protobar" className="protobar" role="region" aria-label="Prototype controls">
         <div className="protobar__group protobar__design" role="group" aria-label="Designs">
           <span className="protobar__label">Design</span>
           {(['A', 'B', 'C'] as const).map(v => (
@@ -91,7 +34,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
               type="button"
               className="protobar__seg"
               aria-pressed={design === v}
-              onClick={e => choose({ kind: 'design', design: v }, e)}
+              onClick={() => choose({ kind: 'design', design: v })}
               title={`Design ${v}`}
             >
               {v}
@@ -110,7 +53,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
               aria-pressed={website?.key === w.key}
               aria-label={`${w.label} — ${w.brand.name}`}
               title={`${w.label} — ${w.brand.shortName}`}
-              onClick={e => choose({ kind: 'website', website: w }, e)}
+              onClick={() => choose({ kind: 'website', website: w })}
               style={{ background: fieldColor(w.brand.accent) }}
             >
               {w.key}
@@ -128,12 +71,7 @@ export function ProtoBar({ onView, onLabels, isHome }: Props) {
               <span className="sr-only">Layers: show which design each section comes from</span>
             </button>
           )}
-          <button type="button" className="protobar__close" onClick={() => setShown(false)}>
-            <ChevronDown size={16} aria-hidden="true" />
-            <span className="sr-only">Hide prototype controls</span>
-          </button>
         </div>
-      </div>
     </div>
   );
 }
