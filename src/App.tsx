@@ -9,6 +9,7 @@ import { Slot } from './components/ui';
 import { FOOTER } from './sections/Footer';
 import { AboutPage, CareersPage, ContactPage, HomePage, NotFoundPage, SafetyPage, ServicePage, navToneFor } from './pages/Pages';
 import { ProtoBar } from './prototype/Switchers';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   const { path, navigate } = useRouter();
@@ -92,6 +93,7 @@ export default function App() {
         <Footer key={`${brand.key}-${layout.footer}`} home={route.page === 'home'} />
       </Slot>
       <ProtoBar onView={selectView} onLabels={() => setShowLabels(v => !v)} isHome={route.page === 'home'} />
+      <Analytics />
     </SiteCtx.Provider>
   );
 }
