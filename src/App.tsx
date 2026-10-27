@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 import type { View } from './data/types';
 import { INITIAL_VIEW, resolveView } from './data/websites';
 import { brandVars, loadBrandFonts } from './system/theme';
@@ -92,6 +93,7 @@ export default function App() {
         <Footer key={`${brand.key}-${layout.footer}`} home={route.page === 'home'} />
       </Slot>
       <ProtoBar onView={selectView} onLabels={() => setShowLabels(v => !v)} isHome={route.page === 'home'} />
+      <Analytics />
     </SiteCtx.Provider>
   );
 }
